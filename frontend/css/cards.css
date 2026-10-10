@@ -1,0 +1,85 @@
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.detail-box {
+  padding: 1rem 1.1rem;
+  background: rgba(12, 21, 34, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.detail-box .label {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.detail-box strong {
+  font-size: 1.12rem;
+}
+
+.case-study-body {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.case-study-body img {
+  border-radius: var(--radius);
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+.service-grid,
+.plan-grid,
+.stats-grid,
+.portfolio-grid,
+.membership-grid,
+.checkout-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.service-grid,
+.plan-grid,
+.membership-grid,
+.checkout-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stats-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.portfolio-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 991px) {
+  .service-grid,
+  .plan-grid,
+  .stats-grid,
+  .membership-grid,
+  .checkout-grid,
+  .portfolio-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 575px) {
+  .service-grid,
+  .plan-grid,
+  .stats-grid,
+  .membership-grid,
+  .checkout-grid,
+  .portfolio-grid,
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+}
