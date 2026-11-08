@@ -1,8 +1,27 @@
 import mongoose from 'mongoose';
 import { hashPassword, verifyPassword } from '../utils/security.js';
 
-export const USER_ROLES = ['client', 'admin'];
+export const USER_ROLES = ['client', 'staff', 'admin', 'super_admin'];
 export const USER_STATUSES = ['active', 'suspended', 'pending'];
+
+export const ALL_PERMISSIONS = [
+  'dashboard.read',
+  'customers.read',
+  'customers.update',
+  'services.manage',
+  'pricing.manage',
+  'portfolio.manage',
+  'inquiries.manage',
+  'quotations.manage',
+  'projects.manage',
+  'payments.read',
+  'refunds.manage',
+  'content.manage',
+  'seo.manage',
+  'settings.manage',
+  'admins.manage',
+  'audit.read',
+];
 
 const userSchema = new mongoose.Schema(
   {
@@ -38,6 +57,31 @@ const userSchema = new mongoose.Schema(
       default: 'client',
       index: true,
     },
+    permissions: {
+      type: [String],
+      default: function () {
+        if (this.role === 'super_admin') return ['*'];
+        if (this.role === 'admin') {
+          return [
+            'dashboard.read',
+            'customers.read',
+            'services.manage',
+            'pricing.manage',
+            'portfolio.manage',
+            'inquiries.manage',
+            'quotations.manage',
+            'projects.manage',
+            'payments.read',
+            'content.manage',
+            'seo.manage',
+          ];
+        }
+        if (this.role === 'staff') {
+          return ['dashboard.read', 'inquiries.manage', 'projects.manage'];
+        }
+        return [];
+      },
+    },
     status: {
       type: String,
       enum: {
@@ -68,9 +112,21 @@ const userSchema = new mongoose.Schema(
       default: null,
       select: false,
     },
+    failedLoginAttempts: {
+      type: Number,
+      default: 0,
+    },
+    lockUntil: {
+      type: Date,
+      default: null,
+    },
     lastLoginAt: {
       type: Date,
       default: null,
+    },
+    lastLoginIp: {
+      type: String,
+      default: '',
     },
   },
   {
@@ -79,35 +135,36 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// Hash password before saving
-userSchema.pre('save', function (next) {
+// Pre-save hook to hash password if modified
+userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   try {
-    this.password = hashPassword(this.password);
+    this.password = await hashPassword(this.password);
     next();
   } catch (err) {
     next(err);
   }
 });
 
-// Compare password instance method
-userSchema.methods.comparePassword = function (candidatePassword) {
+// Instance method to verify password
+userSchema.methods.comparePassword = async function (candidatePassword) {
   return verifyPassword(candidatePassword, this.password);
 };
 
-// Safe JSON serialization
+// Return sanitized representation omitting password and internal fields
 userSchema.methods.toSafeJSON = function () {
   return {
-    id: this._id.toString(),
+    id: this._id ? this._id.toString() : this.id,
     name: this.name,
     email: this.email,
     role: this.role,
+    permissions: this.permissions || [],
     status: this.status,
-    phone: this.phone,
-    company: this.company,
+    phone: this.phone || '',
+    company: this.company || '',
     createdAt: this.createdAt,
     lastLoginAt: this.lastLoginAt,
   };
 };
 
-export const User = mongoose.model('User', userSchema);
+export const User = mongoose.models.User || mongoose.model('User', userSchema);

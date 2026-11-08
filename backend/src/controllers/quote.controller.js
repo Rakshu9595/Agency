@@ -48,7 +48,7 @@ export const handleGetQuoteByReference = async (req, res, next) => {
 
     // Ownership check
     const isOwner = quote.customerId && String(quote.customerId) === String(req.user.id);
-    const isAdmin = req.user && req.user.role === 'admin';
+    const isAdmin = req.user && ['admin', 'super_admin'].includes(req.user.role);
 
     if (!isOwner && !isAdmin) {
       return sendError(res, { statusCode: 403, message: 'Unauthorized to view this quote' });
@@ -81,7 +81,7 @@ export const handleAcceptQuote = async (req, res, next) => {
     }
 
     const isOwner = quote.customerId && String(quote.customerId) === String(req.user.id);
-    const isAdmin = req.user && req.user.role === 'admin';
+    const isAdmin = req.user && ['admin', 'super_admin'].includes(req.user.role);
 
     if (!isOwner && !isAdmin) {
       return sendError(res, { statusCode: 403, message: 'Unauthorized to approve this quote' });
@@ -208,7 +208,7 @@ export const handleRequestQuoteChanges = async (req, res, next) => {
     }
 
     const isOwner = quote.customerId && String(quote.customerId) === String(req.user.id);
-    if (!isOwner && req.user.role !== 'admin') {
+    if (!isOwner && !['admin', 'super_admin'].includes(req.user.role)) {
       return sendError(res, { statusCode: 403, message: 'Unauthorized to modify this quote' });
     }
 
@@ -248,7 +248,7 @@ export const handleRejectQuote = async (req, res, next) => {
     }
 
     const isOwner = quote.customerId && String(quote.customerId) === String(req.user.id);
-    if (!isOwner && req.user.role !== 'admin') {
+    if (!isOwner && !['admin', 'super_admin'].includes(req.user.role)) {
       return sendError(res, { statusCode: 403, message: 'Unauthorized' });
     }
 

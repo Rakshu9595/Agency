@@ -1,6 +1,7 @@
 import { sendError } from '../utils/api-response.js';
 import { verifyToken } from '../utils/security.js';
 import { User } from '../models/User.js';
+import { isDatabaseConnected, memoryStore } from '../utils/memory-store.js';
 
 /**
  * Middleware to authenticate requests via Bearer token in Authorization header or cookie.
@@ -9,15 +10,15 @@ export const requireAuth = async (req, res, next) => {
   try {
     let token = null;
 
-    // Check Authorization header
+    // 1. Check Authorization header
     const authHeader = req.headers.authorization;
     if (authHeader && authHeader.startsWith('Bearer ')) {
       token = authHeader.split(' ')[1].trim();
     }
 
-    // Check cookies if present
+    // 2. Check cookies if present (support pravyuk_token with fallback to legacy keys)
     if (!token && req.headers.cookie) {
-      const match = req.headers.cookie.match(/agenet_token=([^;]+)/);
+      const match = req.headers.cookie.match(/(?:pravyuk_token|xevruniq_token|agenet_token)=([^;]+)/);
       if (match) {
         token = match[1];
       }
@@ -38,12 +39,28 @@ export const requireAuth = async (req, res, next) => {
       });
     }
 
+    // Check account status if user exists
+    let user = null;
+    if (isDatabaseConnected()) {
+      user = await User.findById(payload.id).select('status role permissions');
+    } else {
+      user = memoryStore.findUserById(payload.id);
+    }
+
+    if (user && user.status === 'suspended') {
+      return sendError(res, {
+        statusCode: 403,
+        message: 'Your account has been suspended. Please contact agency support.',
+      });
+    }
+
     // Attach user information to request
     req.user = {
       id: payload.id,
       email: payload.email,
       name: payload.name,
-      role: payload.role || 'client',
+      role: (user && user.role) || payload.role || 'client',
+      permissions: (user && user.permissions) || payload.permissions || (payload.role === 'super_admin' ? ['*'] : []),
     };
 
     next();
@@ -56,16 +73,61 @@ export const requireAuth = async (req, res, next) => {
 };
 
 /**
- * Restrict access to administrators only.
+ * Restrict access to administrative users (SUPER_ADMIN or ADMIN).
  */
 export const requireAdmin = (req, res, next) => {
-  if (!req.user || req.user.role !== 'admin') {
+  if (!req.user || !['super_admin', 'admin'].includes(req.user.role)) {
     return sendError(res, {
       statusCode: 403,
       message: 'Access denied. Administrative privileges required.',
     });
   }
   next();
+};
+
+/**
+ * Restrict access strictly to SUPER_ADMIN.
+ */
+export const requireSuperAdmin = (req, res, next) => {
+  if (!req.user || req.user.role !== 'super_admin') {
+    return sendError(res, {
+      statusCode: 403,
+      message: 'Access denied. Super Administrator privileges required.',
+    });
+  }
+  next();
+};
+
+/**
+ * Granular permission check middleware.
+ * Super admins bypass all permission checks.
+ *
+ * @param {string} permission
+ */
+export const requirePermission = (permission) => {
+  return (req, res, next) => {
+    if (!req.user) {
+      return sendError(res, {
+        statusCode: 401,
+        message: 'Authentication required',
+      });
+    }
+
+    // Super Admin has all permissions
+    if (req.user.role === 'super_admin') {
+      return next();
+    }
+
+    const perms = req.user.permissions || [];
+    if (perms.includes('*') || perms.includes(permission)) {
+      return next();
+    }
+
+    return sendError(res, {
+      statusCode: 403,
+      message: `Access denied. Permission '${permission}' is required for this operation.`,
+    });
+  };
 };
 
 /**

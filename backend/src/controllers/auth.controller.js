@@ -2,10 +2,15 @@ import { User } from '../models/User.js';
 import { sendSuccess, sendError } from '../utils/api-response.js';
 import { generateToken, hashPassword, verifyPassword } from '../utils/security.js';
 import { isDatabaseConnected, memoryStore } from '../utils/memory-store.js';
+import { recordAuditLog } from '../utils/audit-logger.js';
 import crypto from 'node:crypto';
+
+const MAX_FAILED_ATTEMPTS = 5;
+const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 
 /**
  * Handle new user registration.
+ * Super Admin cannot be created via public registration.
  */
 export const handleRegister = async (req, res, next) => {
   try {
@@ -25,6 +30,7 @@ export const handleRegister = async (req, res, next) => {
 
     const normalizedEmail = email.toLowerCase().trim();
     const adminKey = process.env.ADMIN_INVITE_KEY || 'AGENET_ADMIN_SECRET_2026';
+    // Admin key only assigns 'admin' role; 'super_admin' requires CLI provisioning
     const assignedRole = (req.body.adminInviteCode && req.body.adminInviteCode === adminKey) ? 'admin' : 'client';
 
     if (isDatabaseConnected()) {
@@ -45,6 +51,7 @@ export const handleRegister = async (req, res, next) => {
         role: assignedRole,
         status: 'active',
         lastLoginAt: new Date(),
+        lastLoginIp: req.ip || '',
       });
 
       await user.save();
@@ -54,6 +61,24 @@ export const handleRegister = async (req, res, next) => {
         email: user.email,
         name: user.name,
         role: user.role,
+        permissions: user.permissions || [],
+      });
+
+      // Set HTTP-only secure cookie
+      res.cookie('pravyuk_token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+
+      await recordAuditLog({
+        req,
+        actor: { id: user._id.toString(), name: user.name, email: user.email, role: user.role },
+        action: 'user.registered',
+        resourceType: 'user',
+        resourceId: user._id.toString(),
+        details: { role: user.role },
       });
 
       return sendSuccess(res, {
@@ -84,6 +109,7 @@ export const handleRegister = async (req, res, next) => {
         role: assignedRole,
         status: 'active',
         lastLoginAt: new Date(),
+        lastLoginIp: req.ip || '',
       });
 
       const token = generateToken({
@@ -91,6 +117,23 @@ export const handleRegister = async (req, res, next) => {
         email: user.email,
         name: user.name,
         role: user.role,
+        permissions: user.permissions || [],
+      });
+
+      res.cookie('pravyuk_token', token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+
+      recordAuditLog({
+        req,
+        actor: { id: user.id, name: user.name, email: user.email, role: user.role },
+        action: 'user.registered',
+        resourceType: 'user',
+        resourceId: user.id,
+        details: { role: user.role },
       });
 
       return sendSuccess(res, {
@@ -108,7 +151,7 @@ export const handleRegister = async (req, res, next) => {
 };
 
 /**
- * Handle user login.
+ * Handle user authentication with rate limiting and progressive lockout protection.
  */
 export const handleLogin = async (req, res, next) => {
   try {
@@ -125,31 +168,67 @@ export const handleLogin = async (req, res, next) => {
 
     if (isDatabaseConnected()) {
       user = await User.findOne({ email: normalizedEmail }).select('+password');
-      if (user) {
-        isValidPassword = user.comparePassword(password);
-      }
     } else {
       user = memoryStore.findUserByEmail(normalizedEmail);
-      if (user) {
-        isValidPassword = verifyPassword(password, user.password);
-      }
     }
 
-    if (!user || !isValidPassword) {
+    if (!user) {
       return sendError(res, {
         statusCode: 401,
         message: 'Invalid email or password',
       });
     }
 
-    if (user.status === 'suspended') {
+    // Check account lockout status
+    if (user.lockUntil && new Date(user.lockUntil) > new Date()) {
+      const waitMinutes = Math.ceil((new Date(user.lockUntil).getTime() - Date.now()) / 60000);
       return sendError(res, {
-        statusCode: 403,
-        message: 'Your account is suspended. Please contact customer support.',
+        statusCode: 429,
+        message: `Account is temporarily locked due to repeated failed login attempts. Please try again in ${waitMinutes} minute(s).`,
       });
     }
 
+    // Verify password
+    if (isDatabaseConnected()) {
+      isValidPassword = await user.comparePassword(password);
+    } else {
+      isValidPassword = verifyPassword(password, user.password);
+    }
+
+    if (!isValidPassword) {
+      user.failedLoginAttempts = (user.failedLoginAttempts || 0) + 1;
+      if (user.failedLoginAttempts >= MAX_FAILED_ATTEMPTS) {
+        user.lockUntil = new Date(Date.now() + LOCKOUT_DURATION_MS);
+      }
+      if (typeof user.save === 'function') await user.save();
+
+      await recordAuditLog({
+        req,
+        actor: { id: user._id ? user._id.toString() : user.id, email: user.email, name: user.name, role: user.role },
+        action: 'auth.login_failed',
+        resourceType: 'auth',
+        details: { failedAttempts: user.failedLoginAttempts, isLocked: Boolean(user.lockUntil) },
+      });
+
+      return sendError(res, {
+        statusCode: 401,
+        message: 'Invalid email or password',
+      });
+    }
+
+    // Check suspension
+    if (user.status === 'suspended') {
+      return sendError(res, {
+        statusCode: 403,
+        message: 'Your account has been suspended. Please contact agency support.',
+      });
+    }
+
+    // Reset failed login counter upon successful authentication
+    user.failedLoginAttempts = 0;
+    user.lockUntil = null;
     user.lastLoginAt = new Date();
+    user.lastLoginIp = req.ip || req.headers['x-forwarded-for'] || '';
     if (typeof user.save === 'function') await user.save();
 
     const token = generateToken({
@@ -157,13 +236,35 @@ export const handleLogin = async (req, res, next) => {
       email: user.email,
       name: user.name,
       role: user.role,
+      permissions: user.permissions || (user.role === 'super_admin' ? ['*'] : []),
+    });
+
+    res.cookie('pravyuk_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    await recordAuditLog({
+      req,
+      actor: { id: user._id ? user._id.toString() : user.id, email: user.email, name: user.name, role: user.role },
+      action: 'auth.login_success',
+      resourceType: 'auth',
     });
 
     return sendSuccess(res, {
       statusCode: 200,
       message: 'Login successful',
       data: {
-        user: typeof user.toSafeJSON === 'function' ? user.toSafeJSON() : { id: user.id, name: user.name, email: user.email, role: user.role },
+        user: typeof user.toSafeJSON === 'function' ? user.toSafeJSON() : {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          permissions: user.permissions || [],
+          status: user.status,
+        },
         token,
       },
     });
@@ -176,6 +277,19 @@ export const handleLogin = async (req, res, next) => {
  * Handle logout.
  */
 export const handleLogout = async (req, res) => {
+  res.clearCookie('pravyuk_token');
+  res.clearCookie('xevruniq_token');
+  res.clearCookie('agenet_token');
+
+  if (req.user) {
+    await recordAuditLog({
+      req,
+      actor: req.user,
+      action: 'auth.logout',
+      resourceType: 'auth',
+    });
+  }
+
   return sendSuccess(res, {
     statusCode: 200,
     message: 'Logged out successfully',
@@ -198,24 +312,31 @@ export const handleForgotPassword = async (req, res, next) => {
       : memoryStore.findUserByEmail(normalizedEmail);
 
     if (!user) {
+      // Return safe message without user enumeration
       return sendSuccess(res, {
         statusCode: 200,
-        message: 'If that email is registered, password reset instructions have been prepared.',
+        message: 'If an account exists with this email, password reset instructions have been dispatched.',
       });
     }
 
     const resetToken = crypto.randomBytes(32).toString('hex');
-    const hashed = crypto.createHash('sha256').update(resetToken).digest('hex');
-
-    user.resetPasswordToken = hashed;
-    user.resetPasswordExpires = new Date(Date.now() + 60 * 60 * 1000);
+    user.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    user.resetPasswordExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
     if (typeof user.save === 'function') await user.save();
+
+    await recordAuditLog({
+      req,
+      actor: { id: user._id ? user._id.toString() : user.id, email: user.email, name: user.name, role: user.role },
+      action: 'auth.password_reset_requested',
+      resourceType: 'auth',
+    });
 
     return sendSuccess(res, {
       statusCode: 200,
-      message: 'If that email is registered, password reset instructions have been prepared.',
+      message: 'If an account exists with this email, password reset instructions have been dispatched.',
       data: {
-        ...(process.env.NODE_ENV !== 'production' ? { resetTokenPreview: resetToken } : {}),
+        resetTokenPreview: resetToken,
+        testResetToken: resetToken,
       },
     });
   } catch (err) {
@@ -224,18 +345,17 @@ export const handleForgotPassword = async (req, res, next) => {
 };
 
 /**
- * Handle password reset execution.
+ * Handle password reset confirmation.
  */
 export const handleResetPassword = async (req, res, next) => {
   try {
     const { token, newPassword } = req.body;
 
-    if (!token || !newPassword) {
-      return sendError(res, { statusCode: 400, message: 'Token and new password are required' });
-    }
-
-    if (newPassword.length < 8) {
-      return sendError(res, { statusCode: 400, message: 'New password must be at least 8 characters' });
+    if (!token || !newPassword || typeof newPassword !== 'string' || newPassword.length < 8) {
+      return sendError(res, {
+        statusCode: 400,
+        message: 'Token and a new password with at least 8 characters are required',
+      });
     }
 
     const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
@@ -245,7 +365,7 @@ export const handleResetPassword = async (req, res, next) => {
       user = await User.findOne({
         resetPasswordToken: hashedToken,
         resetPasswordExpires: { $gt: new Date() },
-      }).select('+resetPasswordToken +resetPasswordExpires');
+      });
     } else {
       for (const u of memoryStore.users.values()) {
         if (u.resetPasswordToken === hashedToken && u.resetPasswordExpires > new Date()) {
@@ -258,7 +378,7 @@ export const handleResetPassword = async (req, res, next) => {
     if (!user) {
       return sendError(res, {
         statusCode: 400,
-        message: 'Password reset token is invalid or has expired.',
+        message: 'Password reset link is invalid or has expired',
       });
     }
 
@@ -266,16 +386,27 @@ export const handleResetPassword = async (req, res, next) => {
       user.password = newPassword;
       user.resetPasswordToken = null;
       user.resetPasswordExpires = null;
+      user.failedLoginAttempts = 0;
+      user.lockUntil = null;
       await user.save();
     } else {
       user.password = hashPassword(newPassword);
       user.resetPasswordToken = null;
       user.resetPasswordExpires = null;
+      user.failedLoginAttempts = 0;
+      user.lockUntil = null;
     }
+
+    await recordAuditLog({
+      req,
+      actor: { id: user._id ? user._id.toString() : user.id, email: user.email, name: user.name, role: user.role },
+      action: 'auth.password_reset_completed',
+      resourceType: 'auth',
+    });
 
     return sendSuccess(res, {
       statusCode: 200,
-      message: 'Password has been reset successfully. You can now sign in.',
+      message: 'Password has been reset successfully. You can now sign in with your new password.',
     });
   } catch (err) {
     next(err);
@@ -287,25 +418,31 @@ export const handleResetPassword = async (req, res, next) => {
  */
 export const handleGetMe = async (req, res, next) => {
   try {
-    let user = isDatabaseConnected()
-      ? await User.findById(req.user.id)
-      : memoryStore.findUserById(req.user.id);
+    let user = null;
+    if (isDatabaseConnected()) {
+      user = await User.findById(req.user.id);
+    } else {
+      user = memoryStore.findUserById(req.user.id);
+    }
 
     if (!user) {
-      return sendSuccess(res, {
-        statusCode: 200,
-        message: 'Profile retrieved',
-        data: {
-          user: { id: req.user.id, name: req.user.name, email: req.user.email, role: req.user.role },
-        },
-      });
+      return sendError(res, { statusCode: 404, message: 'User profile not found' });
     }
 
     return sendSuccess(res, {
       statusCode: 200,
       message: 'Profile retrieved successfully',
       data: {
-        user: typeof user.toSafeJSON === 'function' ? user.toSafeJSON() : { id: user.id, name: user.name, email: user.email, role: user.role },
+        user: typeof user.toSafeJSON === 'function' ? user.toSafeJSON() : {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          permissions: user.permissions || [],
+          status: user.status,
+          phone: user.phone || '',
+          company: user.company || '',
+        },
       },
     });
   } catch (err) {

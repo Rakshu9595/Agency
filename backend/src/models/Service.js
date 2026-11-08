@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export const SERVICE_STATUSES = ['active', 'inactive'];
+export const SERVICE_STATUSES = ['active', 'inactive', 'archived'];
 
 const serviceSchema = new mongoose.Schema(
   {
@@ -68,6 +68,16 @@ const serviceSchema = new mongoose.Schema(
         features: [String],
       },
     ],
+    faqs: [
+      {
+        question: String,
+        answer: String,
+      },
+    ],
+    image: {
+      type: String,
+      default: '',
+    },
     status: {
       type: String,
       enum: SERVICE_STATUSES,
@@ -78,6 +88,18 @@ const serviceSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isFeatured: {
+      type: Boolean,
+      default: false,
+    },
+    seoTitle: {
+      type: String,
+      default: '',
+    },
+    seoDescription: {
+      type: String,
+      default: '',
+    },
   },
   {
     timestamps: true,
@@ -85,4 +107,4 @@ const serviceSchema = new mongoose.Schema(
   }
 );
 
-export const Service = mongoose.model('Service', serviceSchema);
+export const Service = mongoose.models.Service || mongoose.model('Service', serviceSchema);

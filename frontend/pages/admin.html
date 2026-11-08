@@ -1,316 +1,1346 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agency Admin Portal | Pravyuk Internal Management</title>
-  <meta name="description" content="Internal agency operations dashboard for project inquiries, quote generation, sprint stages, milestones, and payments." />
+  <title>Pravyuk Super Admin | Website Management & Operations System</title>
+  <meta name="description" content="Super Admin control panel for Pravyuk website agency: manage CMS content, services, pricing, customers, projects, milestones, Razorpay financials, SEO, and team roles." />
   <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Fonts & Bootstrap 5 -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <!-- Brand CSS -->
   <link rel="stylesheet" href="../css/variables.css" />
   <link rel="stylesheet" href="../css/reset.css" />
   <link rel="stylesheet" href="../css/global.css" />
-  <link rel="stylesheet" href="../css/layout.css" />
   <link rel="stylesheet" href="../css/components.css" />
-  <link rel="stylesheet" href="../css/navbar.css" />
-  <link rel="stylesheet" href="../css/footer.css" />
   <link rel="stylesheet" href="../css/cards.css" />
+
   <!-- Favicon & Brand Icons -->
   <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png" />
   <link rel="shortcut icon" href="../favicon.ico" />
+
+  <style>
+    :root {
+      --admin-sidebar-width: 270px;
+      --admin-bg-dark: #0f1115;
+      --admin-sidebar-bg: #14171d;
+      --admin-card-bg: #181c24;
+      --admin-card-border: rgba(255, 255, 255, 0.08);
+      --admin-gold: #c5a059;
+      --admin-gold-hover: #d8b26e;
+    }
+    body {
+      background-color: var(--admin-bg-dark);
+      color: #e5e7eb;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .admin-wrapper {
+      display: flex;
+      min-height: 100vh;
+    }
+    .admin-sidebar {
+      width: var(--admin-sidebar-width);
+      background-color: var(--admin-sidebar-bg);
+      border-right: 1px solid var(--admin-card-border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1040;
+      transition: transform 0.3s ease;
+      overflow-y: auto;
+    }
+    .admin-main {
+      margin-left: var(--admin-sidebar-width);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      transition: margin-left 0.3s ease;
+    }
+    @media (max-width: 991.98px) {
+      .admin-sidebar {
+        transform: translateX(-100%);
+      }
+      .admin-sidebar.show {
+        transform: translateX(0);
+      }
+      .admin-main {
+        margin-left: 0;
+      }
+    }
+    .admin-brand {
+      padding: 1.25rem 1.25rem 1rem;
+      border-bottom: 1px solid var(--admin-card-border);
+    }
+    .sidebar-section-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6b7280;
+      padding: 0.75rem 1.25rem 0.25rem;
+    }
+    .sidebar-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 1.25rem;
+      color: #9ca3af;
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      border-left: 3px solid transparent;
+      cursor: pointer;
+    }
+    .sidebar-nav-link:hover {
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0.04);
+    }
+    .sidebar-nav-link.active {
+      color: #fff;
+      background-color: rgba(197, 160, 89, 0.12);
+      border-left-color: var(--admin-gold);
+      font-weight: 600;
+    }
+    .sidebar-nav-link .badge {
+      margin-left: auto;
+      font-size: 0.7rem;
+    }
+    .admin-topbar {
+      height: 64px;
+      background-color: var(--admin-sidebar-bg);
+      border-bottom: 1px solid var(--admin-card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+    }
+    .admin-card {
+      background-color: var(--admin-card-bg);
+      border: 1px solid var(--admin-card-border);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+    }
+    .stat-card {
+      background: linear-gradient(145deg, #181c24, #14171d);
+      border: 1px solid var(--admin-card-border);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--admin-gold);
+      opacity: 0.6;
+    }
+    .table-dark-custom {
+      --bs-table-bg: transparent;
+      --bs-table-hover-bg: rgba(255, 255, 255, 0.03);
+      --bs-table-border-color: rgba(255, 255, 255, 0.08);
+      font-size: 0.88rem;
+    }
+    .brand-serif {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+  </style>
 </head>
-<body class="bg-black text-white">
-  <div id="site-navbar"></div>
+<body>
 
-  <main class="main-page py-4">
-    <div class="container">
-      <!-- Admin Header -->
-      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 p-4 rounded-4 bg-dark border border-secondary border-opacity-25">
-        <div>
-          <span class="badge bg-danger mb-2"><i class="bi bi-shield-lock-fill me-1"></i> Authorized Staff Area</span>
-          <h2 class="text-white fw-bold mb-1">Agency Management Portal</h2>
-          <p class="text-muted small mb-0">Manage incoming briefs, issue itemized quotes, advance sprint stages, and verify milestone revenue.</p>
-        </div>
-        <div class="d-flex gap-2">
-          <button class="btn btn-outline-light btn-sm" onclick="loadAdminData()"><i class="bi bi-arrow-clockwise me-1"></i> Refresh</button>
-          <a href="dashboard.html" class="btn btn-outline-primary btn-sm">Client Portal View</a>
+  <!-- Access Denied Screen (Rendered if client account or unauthenticated) -->
+  <div id="admin-forbidden-view" class="d-none min-vh-100 d-flex align-items-center justify-content-center p-4">
+    <div class="card p-5 border border-danger text-center bg-dark rounded-4" style="max-width: 520px;">
+      <div class="display-3 text-danger mb-3"><i class="bi bi-shield-lock"></i></div>
+      <h3 class="text-white fw-bold mb-2">Restricted Administration</h3>
+      <p class="text-muted mb-4">
+        This portal requires verified Super Administrator or Staff credentials. Your authenticated role does not possess permissions for this area.
+      </p>
+      <div class="d-flex justify-content-center gap-2">
+        <a href="login.html?redirect=admin.html" class="btn btn-primary btn-sm"><i class="bi bi-box-arrow-in-right me-1"></i> Switch Account</a>
+        <a href="dashboard.html" class="btn btn-outline-light btn-sm">Client Portal</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Administrative App Container -->
+  <div id="admin-app" class="admin-wrapper">
+
+    <!-- 1. Left Sidebar Navigation -->
+    <aside id="adminSidebar" class="admin-sidebar">
+      <div class="admin-brand d-flex align-items-center justify-content-between">
+        <a href="../index.html" class="d-flex align-items-center gap-2 text-decoration-none">
+          <img src="../assets/images/pravyuk-icon.svg" alt="Pravyuk" height="32" width="32" />
+          <div>
+            <div class="fw-bold text-white brand-serif fs-5 lh-1">PRAVYUK</div>
+            <small class="text-muted" style="font-size: 0.65rem; letter-spacing: 0.05em;">SUPER ADMIN OS</small>
+          </div>
+        </a>
+        <button class="btn btn-sm btn-link text-muted d-lg-none p-0" onclick="toggleSidebar()"><i class="bi bi-x-lg fs-5"></i></button>
+      </div>
+
+      <div class="p-3 border-bottom border-secondary border-opacity-10">
+        <div class="d-flex align-items-center gap-2">
+          <div class="rounded-circle bg-warning bg-opacity-10 text-warning d-flex align-items-center justify-content-center fw-bold" style="width: 38px; height: 38px;" id="actor-avatar">SA</div>
+          <div class="overflow-hidden">
+            <div class="text-white small fw-bold text-truncate" id="actor-name">Super Administrator</div>
+            <div class="d-flex align-items-center gap-1">
+              <span class="badge bg-warning text-dark py-0 px-1" style="font-size: 0.62rem;" id="actor-role-badge">SUPER ADMIN</span>
+              <span class="text-success small"><i class="bi bi-circle-fill" style="font-size: 0.45rem;"></i> Active</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Unauthorized Alert Box (Hidden unless role check fails) -->
-      <div id="admin-forbidden-view" class="d-none text-center py-5">
-        <div class="display-1 text-danger mb-3"><i class="bi bi-shield-x"></i></div>
-        <h3>Access Denied (403 Forbidden)</h3>
-        <p class="text-muted mx-auto" style="max-width: 500px;">
-          This internal administration portal is restricted to authorized agency engineers and staff. Your account does not possess administrative privileges.
-        </p>
-        <a href="dashboard.html" class="btn btn-primary">Go to Customer Dashboard</a>
+      <nav class="py-2">
+        <div class="sidebar-section-title">Core Management</div>
+        <a class="sidebar-nav-link active" onclick="switchTab('overview')"><i class="bi bi-speedometer2"></i> Dashboard Overview</a>
+        <a class="sidebar-nav-link" onclick="switchTab('inquiries')"><i class="bi bi-inbox-fill"></i> Project Inquiries <span class="badge bg-primary" id="badge-inquiries">0</span></a>
+        <a class="sidebar-nav-link" onclick="switchTab('quotes')"><i class="bi bi-file-earmark-text"></i> Quotations & Proposals</a>
+        <a class="sidebar-nav-link" onclick="switchTab('projects')"><i class="bi bi-kanban"></i> Projects & Milestones <span class="badge bg-warning text-dark" id="badge-projects">0</span></a>
+        <a class="sidebar-nav-link" onclick="switchTab('customers')"><i class="bi bi-people"></i> Customer Accounts</a>
+
+        <div class="sidebar-section-title">Website CMS & Marketing</div>
+        <a class="sidebar-nav-link" onclick="switchTab('cms-homepage')"><i class="bi bi-layout-text-window-reverse"></i> Homepage Editor</a>
+        <a class="sidebar-nav-link" onclick="switchTab('cms-nav-footer')"><i class="bi bi-menu-button-wide"></i> Navigation & Footer</a>
+        <a class="sidebar-nav-link" onclick="switchTab('services')"><i class="bi bi-boxes"></i> Services & Packages</a>
+        <a class="sidebar-nav-link" onclick="switchTab('portfolio')"><i class="bi bi-collection"></i> Portfolio Showcase</a>
+        <a class="sidebar-nav-link" onclick="switchTab('blog')"><i class="bi bi-newspaper"></i> Articles & Blog</a>
+        <a class="sidebar-nav-link" onclick="switchTab('testimonials')"><i class="bi bi-chat-quote"></i> Testimonials & FAQs</a>
+        <a class="sidebar-nav-link" onclick="switchTab('media')"><i class="bi bi-images"></i> Media Library</a>
+
+        <div class="sidebar-section-title">Finance & Systems</div>
+        <a class="sidebar-nav-link" onclick="switchTab('payments')"><i class="bi bi-cash-stack"></i> Payments & Refunds</a>
+        <a class="sidebar-nav-link" onclick="switchTab('seo')"><i class="bi bi-search"></i> SEO Control Center</a>
+        <a class="sidebar-nav-link" onclick="switchTab('settings')"><i class="bi bi-sliders"></i> Site Settings</a>
+        <a class="sidebar-nav-link" onclick="switchTab('users')" id="nav-users-link"><i class="bi bi-shield-check"></i> Admin Team & Roles</a>
+        <a class="sidebar-nav-link" onclick="switchTab('audit')" id="nav-audit-link"><i class="bi bi-journal-text"></i> Security Audit Logs</a>
+        <a class="sidebar-nav-link" onclick="switchTab('profile')"><i class="bi bi-person-gear"></i> My Profile & Security</a>
+      </nav>
+
+      <div class="mt-auto p-3 border-top border-secondary border-opacity-10">
+        <a href="../index.html" target="_blank" class="btn btn-outline-light btn-sm w-100 mb-2"><i class="bi bi-box-arrow-up-right me-1"></i> View Live Website</a>
+        <button class="btn btn-outline-danger btn-sm w-100" onclick="handleAdminLogout()"><i class="bi bi-box-arrow-right me-1"></i> Sign Out</button>
       </div>
+    </aside>
 
-      <!-- Main Admin Content -->
-      <div id="admin-main-view">
-        <!-- KPI Metrics Grid -->
-        <div class="row g-3 mb-4">
-          <div class="col-sm-6 col-lg-3">
-            <div class="card p-3 border-0 bg-dark rounded-3 border border-secondary border-opacity-25">
-              <span class="text-muted small">Verified Revenue</span>
-              <div id="admin-metric-revenue" class="fs-4 fw-bold text-success mt-1">₹0</div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-3">
-            <div class="card p-3 border-0 bg-dark rounded-3 border border-secondary border-opacity-25">
-              <span class="text-muted small">New Inquiries</span>
-              <div id="admin-metric-inquiries" class="fs-4 fw-bold text-primary mt-1">0</div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-3">
-            <div class="card p-3 border-0 bg-dark rounded-3 border border-secondary border-opacity-25">
-              <span class="text-muted small">Active Sprints</span>
-              <div id="admin-metric-projects" class="fs-4 fw-bold text-warning mt-1">0</div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-lg-3">
-            <div class="card p-3 border-0 bg-dark rounded-3 border border-secondary border-opacity-25">
-              <span class="text-muted small">Pending Quotes</span>
-              <div id="admin-metric-quotes" class="fs-4 fw-bold text-info mt-1">0</div>
-            </div>
-          </div>
+    <!-- 2. Main Work Area -->
+    <main class="admin-main">
+      <!-- Topbar -->
+      <header class="admin-topbar">
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn btn-sm btn-outline-secondary d-lg-none" onclick="toggleSidebar()"><i class="bi bi-list fs-5"></i></button>
+          <h5 class="text-white fw-bold mb-0" id="current-tab-title">Dashboard Overview</h5>
         </div>
+        <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-sm btn-outline-light" onclick="triggerRefresh()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+          <button class="btn btn-sm btn-outline-warning" onclick="quickRegenerateSitemap()"><i class="bi bi-diagram-3 me-1"></i> Rebuild Sitemap</button>
+          <button class="btn btn-sm btn-outline-info" onclick="downloadSystemBackup()"><i class="bi bi-cloud-arrow-down me-1"></i> Backup JSON</button>
+        </div>
+      </header>
 
-        <!-- Navigation Tabs -->
-        <ul class="nav nav-pills mb-4 border-bottom border-secondary border-opacity-25 pb-3 gap-2" id="adminTabs" role="tablist">
-          <li class="nav-item">
-            <button class="nav-link active btn-sm" id="tab-inquiries" data-bs-toggle="pill" data-bs-target="#content-inquiries" type="button">
-              <i class="bi bi-inbox me-1"></i> Inquiries Inbox
-            </button>
-          </li>
-          <li class="nav-item">
-            <button class="nav-link btn-sm" id="tab-projects" data-bs-toggle="pill" data-bs-target="#content-projects" type="button">
-              <i class="bi bi-kanban me-1"></i> Agency Projects & Stages
-            </button>
-          </li>
-          <li class="nav-item">
-            <button class="nav-link btn-sm" id="tab-payments" data-bs-toggle="pill" data-bs-target="#content-payments" type="button">
-              <i class="bi bi-credit-card me-1"></i> Transactions & Refunds
-            </button>
-          </li>
-        </ul>
+      <!-- Dynamic Views Container -->
+      <div class="p-4">
 
-        <div class="tab-content" id="adminTabContent">
-          <!-- Tab 1: Inquiries Inbox -->
-          <div class="tab-pane fade show active" id="content-inquiries">
-            <div class="card p-4 border-0 bg-dark rounded-4 border border-secondary border-opacity-25">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="text-white fw-bold mb-0">Incoming Client Briefs</h4>
-                <div class="d-flex gap-2">
-                  <select id="inquiry-filter-status" class="form-select form-select-sm bg-black text-white border-secondary" style="width: 160px;" onchange="loadAdminInquiries()">
-                    <option value="">All Statuses</option>
-                    <option value="submitted">Submitted</option>
-                    <option value="under_review">Under Review</option>
-                    <option value="quoted">Quoted</option>
-                    <option value="rejected">Rejected</option>
-                  </select>
+        <!-- ============================================== -->
+        <!-- TAB 1: OVERVIEW -->
+        <!-- ============================================== -->
+        <div id="view-overview" class="admin-view">
+          <!-- Metric Cards -->
+          <div class="row g-3 mb-4">
+            <div class="col-sm-6 col-xl-3">
+              <div class="stat-card">
+                <span class="text-muted small">Total Confirmed Revenue</span>
+                <div class="fs-3 fw-bold text-success mt-1" id="stat-revenue">₹0</div>
+                <small class="text-muted"><i class="bi bi-shield-check text-success me-1"></i> Verified via Razorpay / Bank</small>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="stat-card">
+                <span class="text-muted small">New Project Inquiries</span>
+                <div class="fs-3 fw-bold text-primary mt-1" id="stat-inquiries">0</div>
+                <small class="text-muted"><i class="bi bi-inbox text-primary me-1"></i> Awaiting Engineering Review</small>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="stat-card">
+                <span class="text-muted small">Active Project Sprints</span>
+                <div class="fs-3 fw-bold text-warning mt-1" id="stat-projects">0</div>
+                <small class="text-muted"><i class="bi bi-kanban text-warning me-1"></i> In Staging or Build Stage</small>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xl-3">
+              <div class="stat-card">
+                <span class="text-muted small">Pending Quotations</span>
+                <div class="fs-3 fw-bold text-info mt-1" id="stat-quotes">0</div>
+                <small class="text-muted"><i class="bi bi-clock-history text-info me-1"></i> Proposals Dispatched to Clients</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Secondary Overview Grid -->
+          <div class="row g-4 mb-4">
+            <!-- Recent Inquiries -->
+            <div class="col-lg-6">
+              <div class="admin-card h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6 class="text-white fw-bold mb-0"><i class="bi bi-inbox text-primary me-2"></i>Latest Incoming Briefs</h6>
+                  <button class="btn btn-sm btn-link text-primary p-0 text-decoration-none" onclick="switchTab('inquiries')">View All</button>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-dark-custom align-middle mb-0">
+                    <thead>
+                      <tr class="text-muted small">
+                        <th>Ref</th>
+                        <th>Client</th>
+                        <th>Service</th>
+                        <th>Status</th>
+                        <th class="text-end">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="overview-recent-inquiries">
+                      <tr><td colspan="5" class="text-center py-3 text-muted">Loading inquiries...</td></tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <div class="table-responsive">
-                <table class="table table-dark table-hover align-middle mb-0" style="background: transparent;">
-                  <thead>
-                    <tr class="text-muted small border-bottom border-secondary border-opacity-25">
-                      <th>Ref ID</th>
-                      <th>Client Name</th>
-                      <th>Email / Phone</th>
-                      <th>Website Type</th>
-                      <th>Budget</th>
-                      <th>Status</th>
-                      <th class="text-end">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="admin-inquiries-tbody">
-                    <tr><td colspan="7" class="text-center py-4 text-muted">Loading inquiries...</td></tr>
-                  </tbody>
-                </table>
+            </div>
+
+            <!-- Active Project Sprints -->
+            <div class="col-lg-6">
+              <div class="admin-card h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6 class="text-white fw-bold mb-0"><i class="bi bi-kanban text-warning me-2"></i>Active Project Deliverables</h6>
+                  <button class="btn btn-sm btn-link text-warning p-0 text-decoration-none" onclick="switchTab('projects')">View All</button>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-dark-custom align-middle mb-0">
+                    <thead>
+                      <tr class="text-muted small">
+                        <th>Ref</th>
+                        <th>Project</th>
+                        <th>Stage</th>
+                        <th>Budget</th>
+                        <th class="text-end">Manage</th>
+                      </tr>
+                    </thead>
+                    <tbody id="overview-recent-projects">
+                      <tr><td colspan="5" class="text-center py-3 text-muted">Loading sprints...</td></tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Tab 2: Projects & Stage Management -->
-          <div class="tab-pane fade" id="content-projects">
-            <div class="card p-4 border-0 bg-dark rounded-4 border border-secondary border-opacity-25">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="text-white fw-bold mb-0">Client Development Sprints</h4>
-                <small class="text-muted">Advance stages, post timeline updates, and configure milestones</small>
+          <!-- Recent Payments & Financial Audit -->
+          <div class="admin-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="text-white fw-bold mb-0"><i class="bi bi-credit-card text-success me-2"></i>Latest Verified Transactions</h6>
+              <button class="btn btn-sm btn-link text-success p-0 text-decoration-none" onclick="switchTab('payments')">Transactions Ledger</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-dark-custom align-middle mb-0">
+                <thead>
+                  <tr class="text-muted small">
+                    <th>Order Ref</th>
+                    <th>Customer</th>
+                    <th>Title</th>
+                    <th>Amount</th>
+                    <th>Payment Status</th>
+                    <th>Razorpay ID</th>
+                  </tr>
+                </thead>
+                <tbody id="overview-recent-payments">
+                  <tr><td colspan="6" class="text-center py-3 text-muted">Loading transactions...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 2: PROJECT INQUIRIES -->
+        <!-- ============================================== -->
+        <div id="view-inquiries" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+              <div>
+                <h5 class="text-white fw-bold mb-1">Incoming Project Inquiries & Briefs</h5>
+                <p class="text-muted small mb-0">Review scope requirements, assign engineering staff, and issue proposals.</p>
               </div>
-              <div id="admin-projects-list">
-                <div class="text-center py-4 text-muted">Loading projects...</div>
+              <div class="d-flex gap-2">
+                <input type="text" id="inquiry-search-input" class="form-control form-control-sm bg-dark text-white border-secondary" placeholder="Search by name, email, ref..." style="width: 220px;" oninput="filterInquiriesTable()" />
+                <select id="inquiry-status-select" class="form-select form-select-sm bg-dark text-white border-secondary" style="width: 160px;" onchange="loadAdminInquiries()">
+                  <option value="">All Statuses</option>
+                  <option value="submitted">Submitted</option>
+                  <option value="under_review">Under Review</option>
+                  <option value="quoted">Quoted</option>
+                  <option value="approved">Approved</option>
+                  <option value="rejected">Rejected</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-dark-custom align-middle mb-0">
+                <thead>
+                  <tr class="text-muted small">
+                    <th>Reference</th>
+                    <th>Client Details</th>
+                    <th>Website Requirement</th>
+                    <th>Budget Range</th>
+                    <th>Assigned Staff</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="inquiries-table-tbody">
+                  <tr><td colspan="7" class="text-center py-4 text-muted">Loading inquiries...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 3: QUOTATIONS & PROPOSALS -->
+        <!-- ============================================== -->
+        <div id="view-quotes" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="text-white fw-bold mb-1">Quotations & Formal Client Proposals</h5>
+                <p class="text-muted small mb-0">Itemized line items, deliverables, and milestone payment schedules.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="openDirectQuoteModal()"><i class="bi bi-plus-lg me-1"></i> Issue New Proposal</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-dark-custom align-middle mb-0">
+                <thead>
+                  <tr class="text-muted small">
+                    <th>Quote Ref</th>
+                    <th>Project Title</th>
+                    <th>Customer</th>
+                    <th>Total Price</th>
+                    <th>Advance Req</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="quotes-table-tbody">
+                  <tr><td colspan="7" class="text-center py-4 text-muted">Loading quotations...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 4: PROJECTS & SPRINTS -->
+        <!-- ============================================== -->
+        <div id="view-projects" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="text-white fw-bold mb-1">Agency Projects & Stage Lifecycle</h5>
+                <p class="text-muted small mb-0">12-stage milestone progression, preview URLs, and deliverable attachments.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="openCreateProjectModal()"><i class="bi bi-plus-lg me-1"></i> Provision Project</button>
+            </div>
+            <div id="projects-accordion">
+              <div class="text-center py-4 text-muted">Loading project sprints...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 5: CUSTOMER MANAGEMENT -->
+        <!-- ============================================== -->
+        <div id="view-customers" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+              <div>
+                <h5 class="text-white fw-bold mb-1">Customer Accounts Directory</h5>
+                <p class="text-muted small mb-0">Inspect project histories, verify payments, and manage account statuses.</p>
+              </div>
+              <div class="d-flex gap-2">
+                <input type="text" id="customer-search-input" class="form-control form-control-sm bg-dark text-white border-secondary" placeholder="Search customer..." oninput="loadAdminCustomers()" />
+                <select id="customer-status-filter" class="form-select form-select-sm bg-dark text-white border-secondary" onchange="loadAdminCustomers()">
+                  <option value="">All Accounts</option>
+                  <option value="active">Active</option>
+                  <option value="suspended">Suspended</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-dark-custom align-middle mb-0">
+                <thead>
+                  <tr class="text-muted small">
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Company / Phone</th>
+                    <th>Projects</th>
+                    <th>Total Spent</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="customers-table-tbody">
+                  <tr><td colspan="7" class="text-center py-4 text-muted">Loading customers...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 6: HOMEPAGE CMS EDITOR -->
+        <!-- ============================================== -->
+        <div id="view-cms-homepage" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h5 class="text-white fw-bold mb-1"><i class="bi bi-layout-text-window-reverse text-warning me-2"></i>Homepage CMS Editor</h5>
+                <p class="text-muted small mb-0">Modify hero copy, call-to-actions, stats, and toggle section visibility live.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="saveHomepageContent()"><i class="bi bi-floppy me-1"></i> Publish Changes</button>
+            </div>
+
+            <form id="cms-homepage-form">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label text-muted small">Hero Eyebrow Text</label>
+                  <input type="text" id="cms-hero-eyebrow" class="form-control bg-dark text-white border-secondary" />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label text-muted small">Main Headline</label>
+                  <input type="text" id="cms-hero-heading" class="form-control bg-dark text-white border-secondary" />
+                </div>
+                <div class="col-12">
+                  <label class="form-label text-muted small">Hero Supporting Paragraph</label>
+                  <textarea id="cms-hero-description" rows="3" class="form-control bg-dark text-white border-secondary"></textarea>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label text-muted small">Primary Button Label</label>
+                  <input type="text" id="cms-primary-cta-text" class="form-control bg-dark text-white border-secondary" />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label text-muted small">Primary Button Destination</label>
+                  <input type="text" id="cms-primary-cta-link" class="form-control bg-dark text-white border-secondary" />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label text-muted small">Turnaround Stat</label>
+                  <input type="text" id="cms-stat-turnaround" class="form-control bg-dark text-white border-secondary" />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label text-muted small">Code Ownership Stat</label>
+                  <input type="text" id="cms-stat-ownership" class="form-control bg-dark text-white border-secondary" />
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label text-muted small">Payment Model Stat</label>
+                  <input type="text" id="cms-stat-payment" class="form-control bg-dark text-white border-secondary" />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 7: NAVIGATION & FOOTER CMS -->
+        <!-- ============================================== -->
+        <div id="view-cms-nav-footer" class="admin-view d-none">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="admin-card h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6 class="text-white fw-bold mb-0">Header Navigation Items</h6>
+                  <button class="btn btn-sm btn-outline-primary" onclick="saveNavigationItems()"><i class="bi bi-save me-1"></i> Save Menu</button>
+                </div>
+                <div id="nav-items-container" class="d-flex flex-column gap-2">
+                  <div class="text-muted small">Loading menu links...</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="admin-card h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6 class="text-white fw-bold mb-0">Footer Information & Socials</h6>
+                  <button class="btn btn-sm btn-primary" onclick="saveFooterContent()"><i class="bi bi-save me-1"></i> Save Footer</button>
+                </div>
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label class="form-label text-muted small">Agency Tagline</label>
+                    <input type="text" id="footer-tagline" class="form-control bg-dark text-white border-secondary" />
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label text-muted small">Footer Blurb</label>
+                    <textarea id="footer-description" rows="2" class="form-control bg-dark text-white border-secondary"></textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label text-muted small">Contact Email</label>
+                    <input type="email" id="footer-email" class="form-control bg-dark text-white border-secondary" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label text-muted small">Physical Address</label>
+                    <input type="text" id="footer-address" class="form-control bg-dark text-white border-secondary" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label text-muted small">Twitter URL</label>
+                    <input type="url" id="footer-twitter" class="form-control bg-dark text-white border-secondary" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label text-muted small">LinkedIn URL</label>
+                    <input type="url" id="footer-linkedin" class="form-control bg-dark text-white border-secondary" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- Tab 3: Transactions & Refunds -->
-          <div class="tab-pane fade" id="content-payments">
-            <div class="card p-4 border-0 bg-dark rounded-4 border border-secondary border-opacity-25 mb-4">
-              <h4 class="text-white fw-bold mb-3">Verified Payments & Razorpay Orders</h4>
-              <div class="table-responsive">
-                <table class="table table-dark table-hover align-middle mb-0" style="background: transparent;">
-                  <thead>
-                    <tr class="text-muted small border-bottom border-secondary border-opacity-25">
-                      <th>Date</th>
-                      <th>Order Ref</th>
-                      <th>Client</th>
-                      <th>Title</th>
-                      <th>Amount</th>
-                      <th>Razorpay ID</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody id="admin-payments-tbody">
-                    <tr><td colspan="7" class="text-center py-4 text-muted">Loading payments...</td></tr>
-                  </tbody>
-                </table>
+        <!-- ============================================== -->
+        <!-- TAB 8: SERVICES & PRICING -->
+        <!-- ============================================== -->
+        <div id="view-services" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="text-white fw-bold mb-1">Services & Packages Catalog</h5>
+                <p class="text-muted small mb-0">Manage on-demand packages, starting prices, deliverables, and visibility.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="openCreateServiceModal()"><i class="bi bi-plus-lg me-1"></i> Add Service</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-dark-custom align-middle mb-0">
+                <thead>
+                  <tr class="text-muted small">
+                    <th>Service Name</th>
+                    <th>Category</th>
+                    <th>Starting Price</th>
+                    <th>Turnaround</th>
+                    <th>Featured</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="services-table-tbody">
+                  <tr><td colspan="7" class="text-center py-4 text-muted">Loading services...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 9: PORTFOLIO SHOWCASE -->
+        <!-- ============================================== -->
+        <div id="view-portfolio" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="text-white fw-bold mb-1">Portfolio Showcase & Case Studies</h5>
+                <p class="text-muted small mb-0">Featured projects, technology stacks, live URLs, and client case studies.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="openCreatePortfolioModal()"><i class="bi bi-plus-lg me-1"></i> Add Portfolio Project</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-dark-custom align-middle mb-0">
+                <thead>
+                  <tr class="text-muted small">
+                    <th>Project</th>
+                    <th>Client</th>
+                    <th>Category</th>
+                    <th>Tech Stack</th>
+                    <th>Live URL</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="portfolio-table-tbody">
+                  <tr><td colspan="7" class="text-center py-4 text-muted">Loading portfolio...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 10: BLOG & ARTICLES -->
+        <!-- ============================================== -->
+        <div id="view-blog" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="text-white fw-bold mb-1">Blog Articles & Technical Insights</h5>
+                <p class="text-muted small mb-0">Draft, edit, publish, and optimize agency articles for SEO indexing.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="openCreateBlogModal()"><i class="bi bi-plus-lg me-1"></i> Write New Article</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-dark-custom align-middle mb-0">
+                <thead>
+                  <tr class="text-muted small">
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Tags</th>
+                    <th>Status</th>
+                    <th>Published At</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="blog-table-tbody">
+                  <tr><td colspan="6" class="text-center py-4 text-muted">Loading articles...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 11: TESTIMONIALS & FAQS -->
+        <!-- ============================================== -->
+        <div id="view-testimonials" class="admin-view d-none">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="admin-card h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6 class="text-white fw-bold mb-0">Client Testimonials</h6>
+                  <button class="btn btn-sm btn-outline-primary" onclick="openCreateTestimonialModal()"><i class="bi bi-plus me-1"></i> Add</button>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-dark-custom align-middle mb-0">
+                    <thead>
+                      <tr class="text-muted small">
+                        <th>Client</th>
+                        <th>Company</th>
+                        <th>Rating</th>
+                        <th class="text-end">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="testimonials-table-tbody">
+                      <tr><td colspan="4" class="text-center py-3 text-muted">Loading testimonials...</td></tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-
-            <!-- Refund Requests Ledger -->
-            <div class="card p-4 border-0 bg-dark rounded-4 border border-secondary border-opacity-25">
-              <h4 class="text-white fw-bold mb-3">Client Refund Requests</h4>
-              <div class="table-responsive">
-                <table class="table table-dark table-hover align-middle mb-0" style="background: transparent;">
-                  <thead>
-                    <tr class="text-muted small border-bottom border-secondary border-opacity-25">
-                      <th>Refund Ref</th>
-                      <th>Order Ref</th>
-                      <th>Reason</th>
-                      <th>Status</th>
-                      <th class="text-end">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody id="admin-refunds-tbody">
-                    <tr><td colspan="5" class="text-center py-4 text-muted">No refund requests pending.</td></tr>
-                  </tbody>
-                </table>
+            <div class="col-lg-6">
+              <div class="admin-card h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h6 class="text-white fw-bold mb-0">Website FAQs</h6>
+                  <button class="btn btn-sm btn-outline-primary" onclick="openCreateFaqModal()"><i class="bi bi-plus me-1"></i> Add</button>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-dark-custom align-middle mb-0">
+                    <thead>
+                      <tr class="text-muted small">
+                        <th>Question</th>
+                        <th>Category</th>
+                        <th class="text-end">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="faqs-table-tbody">
+                      <tr><td colspan="3" class="text-center py-3 text-muted">Loading FAQs...</td></tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 12: MEDIA LIBRARY -->
+        <!-- ============================================== -->
+        <div id="view-media" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="text-white fw-bold mb-1">Brand Assets & Media Library</h5>
+                <p class="text-muted small mb-0">Manage SVG logos, Open Graph previews, and case study screenshots.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="openUploadMediaModal()"><i class="bi bi-cloud-arrow-up me-1"></i> Register Media</button>
+            </div>
+            <div id="media-grid" class="row g-3">
+              <div class="col-12 text-center py-4 text-muted">Loading media files...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 13: PAYMENTS & FINANCIALS -->
+        <!-- ============================================== -->
+        <div id="view-payments" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+              <div>
+                <h5 class="text-white fw-bold mb-1">Financial Ledger & Razorpay Orders</h5>
+                <p class="text-muted small mb-0">Real-time payment verification records, manual bank receipts, and refunds.</p>
+              </div>
+              <div class="d-flex gap-2">
+                <button class="btn btn-outline-success btn-sm" onclick="openManualPaymentModal()"><i class="bi bi-cash-coin me-1"></i> Record Manual Bank Transfer</button>
+                <button class="btn btn-outline-warning btn-sm" onclick="openInitiateRefundModal()"><i class="bi bi-arrow-counterclockwise me-1"></i> Process Refund</button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-dark-custom align-middle mb-0">
+                <thead>
+                  <tr class="text-muted small">
+                    <th>Order Ref</th>
+                    <th>Customer</th>
+                    <th>Payment Title</th>
+                    <th>Amount</th>
+                    <th>Payment Status</th>
+                    <th>Transaction ID</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="payments-table-tbody">
+                  <tr><td colspan="7" class="text-center py-4 text-muted">Loading payments ledger...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 14: SEO CONTROL CENTER -->
+        <!-- ============================================== -->
+        <div id="view-seo" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h5 class="text-white fw-bold mb-1"><i class="bi bi-search text-warning me-2"></i>SEO & Search Console Center</h5>
+                <p class="text-muted small mb-0">Manage global meta tags, Open Graph images, canonical URLs, and dynamic sitemap generation.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="saveSeoSettings()"><i class="bi bi-save me-1"></i> Save SEO Config</button>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label text-muted small">Global Title Tag</label>
+                <input type="text" id="seo-global-title" class="form-control bg-dark text-white border-secondary" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label text-muted small">Canonical Base URL</label>
+                <input type="url" id="seo-canonical-url" class="form-control bg-dark text-white border-secondary" />
+              </div>
+              <div class="col-12">
+                <label class="form-label text-muted small">Global Meta Description</label>
+                <textarea id="seo-global-description" rows="3" class="form-control bg-dark text-white border-secondary"></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label text-muted small">Default Social Preview Image (OG Image)</label>
+                <input type="text" id="seo-og-image" class="form-control bg-dark text-white border-secondary" />
+              </div>
+              <div class="col-md-6 d-flex align-items-end">
+                <button type="button" class="btn btn-warning w-100" onclick="quickRegenerateSitemap()"><i class="bi bi-diagram-3 me-1"></i> Regenerate XML Sitemap (sitemap.xml)</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 15: WEBSITE SETTINGS -->
+        <!-- ============================================== -->
+        <div id="view-settings" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h5 class="text-white fw-bold mb-1"><i class="bi bi-sliders text-primary me-2"></i>Global Website Settings</h5>
+                <p class="text-muted small mb-0">Configure agency branding, contact credentials, business toggles, and maintenance mode.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="saveGlobalSettings()"><i class="bi bi-save me-1"></i> Save All Settings</button>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label text-muted small">Agency Brand Name</label>
+                <input type="text" id="settings-site-name" class="form-control bg-dark text-white border-secondary" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label text-muted small">Official Tagline</label>
+                <input type="text" id="settings-tagline" class="form-control bg-dark text-white border-secondary" />
+              </div>
+              <div class="col-md-4">
+                <label class="form-label text-muted small">Support Email</label>
+                <input type="email" id="settings-support-email" class="form-control bg-dark text-white border-secondary" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label text-muted small">Brand Positioning Statement</label>
+                <textarea id="settings-brand-positioning" rows="2" class="form-control bg-dark text-white border-secondary"></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label text-muted small">Operational Toggles</label>
+                <div class="form-check form-switch mt-2">
+                  <input class="form-check-input" type="checkbox" id="settings-accepting-inquiries" checked />
+                  <label class="form-check-label text-white" for="settings-accepting-inquiries">Accepting New Project Inquiries</label>
+                </div>
+                <div class="form-check form-switch mt-2">
+                  <input class="form-check-input" type="checkbox" id="settings-pricing-visible" checked />
+                  <label class="form-check-label text-white" for="settings-pricing-visible">Public Pricing Packages Visible</label>
+                </div>
+                <div class="form-check form-switch mt-2">
+                  <input class="form-check-input" type="checkbox" id="settings-maintenance-mode" />
+                  <label class="form-check-label text-danger fw-bold" for="settings-maintenance-mode">Enable Maintenance Mode</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 16: ADMIN TEAM & ROLES (SUPER ADMIN ONLY) -->
+        <!-- ============================================== -->
+        <div id="view-users" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="text-white fw-bold mb-1"><i class="bi bi-shield-check text-warning me-2"></i>Administrative Team & Access Control</h5>
+                <p class="text-muted small mb-0">Invite operational staff, delegate granular permissions, or revoke administrative access.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="openInviteAdminModal()"><i class="bi bi-person-plus me-1"></i> Invite Administrator / Staff</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-dark-custom align-middle mb-0">
+                <thead>
+                  <tr class="text-muted small">
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Permissions Scope</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-users-table-tbody">
+                  <tr><td colspan="6" class="text-center py-4 text-muted">Loading admin team...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 17: SECURITY AUDIT LOGS -->
+        <!-- ============================================== -->
+        <div id="view-audit" class="admin-view d-none">
+          <div class="admin-card mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="text-white fw-bold mb-1"><i class="bi bi-journal-text text-info me-2"></i>Administrative Audit Logs & Traceability</h5>
+                <p class="text-muted small mb-0">Immutable records of all administrative mutations, user actions, IP addresses, and timestamps.</p>
+              </div>
+              <button class="btn btn-outline-light btn-sm" onclick="loadAuditLogs()"><i class="bi bi-arrow-clockwise me-1"></i> Refresh Logs</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-dark-custom align-middle mb-0">
+                <thead>
+                  <tr class="text-muted small">
+                    <th>Timestamp</th>
+                    <th>Actor</th>
+                    <th>Action</th>
+                    <th>Resource</th>
+                    <th>IP Address</th>
+                  </tr>
+                </thead>
+                <tbody id="audit-logs-table-tbody">
+                  <tr><td colspan="5" class="text-center py-4 text-muted">Loading audit trail...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- TAB 18: PROFILE & SECURITY -->
+        <!-- ============================================== -->
+        <div id="view-profile" class="admin-view d-none">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="admin-card h-100">
+                <h6 class="text-white fw-bold mb-3"><i class="bi bi-person text-primary me-2"></i>Administrator Account Details</h6>
+                <form id="admin-profile-form">
+                  <div class="mb-3">
+                    <label class="form-label text-muted small">Full Name</label>
+                    <input type="text" id="profile-name" class="form-control bg-dark text-white border-secondary" required />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label text-muted small">Email Address</label>
+                    <input type="email" id="profile-email" class="form-control bg-dark text-white border-secondary" disabled />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label text-muted small">Phone Number</label>
+                    <input type="text" id="profile-phone" class="form-control bg-dark text-white border-secondary" />
+                  </div>
+                  <button type="button" class="btn btn-primary btn-sm" onclick="saveAdminProfile()"><i class="bi bi-save me-1"></i> Update Profile</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="admin-card h-100">
+                <h6 class="text-white fw-bold mb-3"><i class="bi bi-key text-warning me-2"></i>Change Admin Password</h6>
+                <form id="admin-password-form">
+                  <div class="mb-3">
+                    <label class="form-label text-muted small">Current Password</label>
+                    <input type="password" id="current-password" class="form-control bg-dark text-white border-secondary" required />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label text-muted small">New Password (min 8 chars)</label>
+                    <input type="password" id="new-password" class="form-control bg-dark text-white border-secondary" required minlength="8" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label text-muted small">Confirm New Password</label>
+                    <input type="password" id="confirm-password" class="form-control bg-dark text-white border-secondary" required minlength="8" />
+                  </div>
+                  <button type="button" class="btn btn-warning btn-sm" onclick="changeAdminPassword()"><i class="bi bi-shield-lock me-1"></i> Update Password</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODALS -->
+  <!-- ============================================== -->
+
+  <!-- 1. Create/Edit Service Modal -->
+  <div class="modal fade" id="serviceModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-dark text-white border-secondary">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title fw-bold" id="serviceModalTitle">Add Service Package</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="service-modal-id" />
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label small text-muted">Service Name *</label>
+              <input type="text" id="svc-name" class="form-control bg-black text-white border-secondary" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small text-muted">Starting Price (INR) *</label>
+              <input type="number" id="svc-price" class="form-control bg-black text-white border-secondary" required min="500" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small text-muted">Category</label>
+              <input type="text" id="svc-category" class="form-control bg-black text-white border-secondary" value="Websites" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small text-muted">Estimated Delivery</label>
+              <input type="text" id="svc-delivery" class="form-control bg-black text-white border-secondary" value="3-7 business days" />
+            </div>
+            <div class="col-12">
+              <label class="form-label small text-muted">Short Description</label>
+              <textarea id="svc-short-desc" rows="2" class="form-control bg-black text-white border-secondary"></textarea>
+            </div>
+            <div class="col-12">
+              <label class="form-label small text-muted">Features (comma-separated)</label>
+              <input type="text" id="svc-features" class="form-control bg-black text-white border-secondary" placeholder="Responsive Design, Razorpay Integration, 100% Code Ownership" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="submitServiceForm()">Save Service</button>
         </div>
       </div>
     </div>
-  </main>
+  </div>
 
-  <!-- Create Quote Modal -->
-  <div class="modal fade" id="createQuoteModal" tabindex="-1" aria-hidden="true">
+  <!-- 2. Create/Edit Portfolio Modal -->
+  <div class="modal fade" id="portfolioModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-dark text-white border-secondary">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title fw-bold" id="portfolioModalTitle">Add Portfolio Project</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="portfolio-modal-id" />
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label small text-muted">Project Title *</label>
+              <input type="text" id="pf-title" class="form-control bg-black text-white border-secondary" required />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small text-muted">Client Name</label>
+              <input type="text" id="pf-client" class="form-control bg-black text-white border-secondary" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small text-muted">Category</label>
+              <input type="text" id="pf-category" class="form-control bg-black text-white border-secondary" value="E-Commerce" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small text-muted">Live Website URL</label>
+              <input type="url" id="pf-live-url" class="form-control bg-black text-white border-secondary" placeholder="https://example.com" />
+            </div>
+            <div class="col-12">
+              <label class="form-label small text-muted">Tech Stack (comma-separated)</label>
+              <input type="text" id="pf-tech-stack" class="form-control bg-black text-white border-secondary" placeholder="Node.js, Express, Razorpay, Bootstrap 5" />
+            </div>
+            <div class="col-12">
+              <label class="form-label small text-muted">Project Description *</label>
+              <textarea id="pf-description" rows="3" class="form-control bg-black text-white border-secondary" required></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="submitPortfolioForm()">Save Project</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Create Quote Modal -->
+  <div class="modal fade" id="createQuoteModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content bg-dark text-white border-secondary">
         <div class="modal-header border-secondary">
           <h5 class="modal-title fw-bold">Issue Formal Quotation Proposal</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <form id="create-quote-form">
             <input type="hidden" id="quote-inquiry-id" />
             <input type="hidden" id="quote-customer-id" />
-
-            <div class="row g-3 mb-3">
+            <div class="row g-3">
               <div class="col-md-6">
-                <label class="form-label" for="quote-project-title">Project Title <span class="text-danger">*</span></label>
+                <label class="form-label small text-muted">Project Title *</label>
                 <input id="quote-project-title" class="form-control bg-black text-white border-secondary" type="text" required />
               </div>
               <div class="col-md-6">
-                <label class="form-label" for="quote-service">Service Category</label>
+                <label class="form-label small text-muted">Service Category</label>
                 <input id="quote-service" class="form-control bg-black text-white border-secondary" type="text" value="custom-web-development" />
               </div>
               <div class="col-md-6">
-                <label class="form-label" for="quote-total-amount">Total Agreed Price (INR) <span class="text-danger">*</span></label>
+                <label class="form-label small text-muted">Total Price (INR) *</label>
                 <input id="quote-total-amount" class="form-control bg-black text-white border-secondary" type="number" required min="1000" />
               </div>
               <div class="col-md-6">
-                <label class="form-label" for="quote-advance-pct">Advance Deposit Percentage</label>
+                <label class="form-label small text-muted">Advance Deposit Percentage</label>
                 <select id="quote-advance-pct" class="form-select bg-black text-white border-secondary">
                   <option value="50" selected>50% Advance (Standard)</option>
                   <option value="30">30% Advance</option>
                   <option value="40">40% Advance</option>
-                  <option value="100">100% Upfront</option>
+                  <option value="100">100% Full Upfront</option>
                 </select>
               </div>
               <div class="col-12">
-                <label class="form-label" for="quote-scope">Scope of Work & Deliverables <span class="text-danger">*</span></label>
-                <textarea id="quote-scope" class="form-control bg-black text-white border-secondary" rows="3" required placeholder="Specify pages, features, integrations, and deployment scope."></textarea>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label" for="quote-revisions">Included Revisions</label>
-                <input id="quote-revisions" class="form-control bg-black text-white border-secondary" type="text" value="2 rounds of structured reviews" />
-              </div>
-              <div class="col-md-6">
-                <label class="form-label" for="quote-warranty">Support & Warranty Period</label>
-                <input id="quote-warranty" class="form-control bg-black text-white border-secondary" type="text" value="30 days post-launch technical warranty" />
+                <label class="form-label small text-muted">Scope of Work & Deliverables *</label>
+                <textarea id="quote-scope" class="form-control bg-black text-white border-secondary" rows="3" required placeholder="Specify pages, features, and deployment requirements."></textarea>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary w-100"><i class="bi bi-send-check me-1"></i> Generate & Issue Proposal to Client</button>
+            <button type="submit" class="btn btn-primary w-100 mt-3"><i class="bi bi-send-check me-1"></i> Issue Proposal to Client</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Update Stage & Deliverables Modal -->
-  <div class="modal fade" id="updateStageModal" tabindex="-1" aria-hidden="true">
+  <!-- 4. Provision Project Modal -->
+  <div class="modal fade" id="createProjectModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content bg-dark text-white border-secondary">
         <div class="modal-header border-secondary">
-          <h5 class="modal-title fw-bold">Update Sprint Stage & URLs</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title fw-bold">Provision Client Project</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <input type="hidden" id="stage-project-ref" />
           <div class="mb-3">
-            <label class="form-label">Sprint Stage</label>
-            <select id="stage-select" class="form-select bg-black text-white border-secondary">
-              <option value="inquiry">Inquiry</option>
-              <option value="review">Review</option>
-              <option value="quotation">Quotation</option>
-              <option value="awaiting_advance">Awaiting Advance</option>
-              <option value="design">Design</option>
-              <option value="development">Development</option>
-              <option value="testing">Testing</option>
-              <option value="awaiting_final_payment">Awaiting Final Payment</option>
-              <option value="delivered">Delivered (Completed)</option>
-            </select>
+            <label class="form-label small text-muted">Project Title *</label>
+            <input type="text" id="new-prj-title" class="form-control bg-black text-white border-secondary" required />
           </div>
           <div class="mb-3">
-            <label class="form-label">Staging Preview URL</label>
-            <input id="stage-staging-url" class="form-control bg-black text-white border-secondary" type="url" placeholder="https://staging.client.agency.dev" />
+            <label class="form-label small text-muted">Customer Email *</label>
+            <input type="email" id="new-prj-email" class="form-control bg-black text-white border-secondary" required />
           </div>
           <div class="mb-3">
-            <label class="form-label">Live Deployment URL (When Delivered)</label>
-            <input id="stage-live-url" class="form-control bg-black text-white border-secondary" type="url" placeholder="https://clientdomain.com" />
+            <label class="form-label small text-muted">Total Budget (INR)</label>
+            <input type="number" id="new-prj-budget" class="form-control bg-black text-white border-secondary" />
           </div>
           <div class="mb-3">
-            <label class="form-label">Client Progress Note</label>
-            <textarea id="stage-note" class="form-control bg-black text-white border-secondary" rows="2" placeholder="e.g. Design review completed. Commencing frontend and Razorpay checkout build."></textarea>
+            <label class="form-label small text-muted">Initial Milestone Title</label>
+            <input type="text" id="new-prj-mls-title" class="form-control bg-black text-white border-secondary" value="UI/UX Design & Architecture Approval" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label small text-muted">Initial Milestone Amount</label>
+            <input type="number" id="new-prj-mls-amount" class="form-control bg-black text-white border-secondary" />
           </div>
         </div>
         <div class="modal-footer border-secondary">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" onclick="submitProjectStageUpdate()">Save Updates</button>
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="submitCreateProject()">Provision Project</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="site-footer"></div>
+  <!-- 5. Manual Payment Modal -->
+  <div class="modal fade" id="manualPaymentModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-white border-secondary">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title fw-bold">Record Manual Bank Payment</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label small text-muted">Customer Email *</label>
+            <input type="email" id="man-pay-email" class="form-control bg-black text-white border-secondary" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label small text-muted">Amount (INR) *</label>
+            <input type="number" id="man-pay-amount" class="form-control bg-black text-white border-secondary" required min="1" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label small text-muted">Payment Channel</label>
+            <select id="man-pay-method" class="form-select bg-black text-white border-secondary">
+              <option value="Direct NEFT / RTGS Bank Transfer">Direct NEFT / RTGS Bank Transfer</option>
+              <option value="IMPS Immediate Payment">IMPS Immediate Payment</option>
+              <option value="UPI Direct Bank Transfer">UPI Direct Bank Transfer</option>
+              <option value="International Wire (SWIFT)">International Wire (SWIFT)</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small text-muted">Reference / Transaction Note</label>
+            <input type="text" id="man-pay-note" class="form-control bg-black text-white border-secondary" placeholder="e.g. UTR #1234567890" />
+          </div>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success btn-sm" onclick="submitManualPayment()">Confirm & Record Payment</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- 6. Invite Admin User Modal -->
+  <div class="modal fade" id="inviteUserModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-white border-secondary">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title fw-bold">Invite Administrator or Staff</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label small text-muted">Team Member Name *</label>
+            <input type="text" id="invite-name" class="form-control bg-black text-white border-secondary" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label small text-muted">Work Email *</label>
+            <input type="email" id="invite-email" class="form-control bg-black text-white border-secondary" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label small text-muted">Temporary Password (min 8 chars) *</label>
+            <input type="password" id="invite-password" class="form-control bg-black text-white border-secondary" required minlength="8" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label small text-muted">Administrative Role</label>
+            <select id="invite-role" class="form-select bg-black text-white border-secondary">
+              <option value="staff">Staff Member (Assigned operational tasks)</option>
+              <option value="admin">Administrator (Module-level management)</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="submitInviteUser()">Create Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Customer Detail Modal -->
+  <div class="modal fade" id="customerDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-dark text-white border-secondary">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title fw-bold" id="customerDetailModalTitle">Customer Profile</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="customerDetailModalBody">
+          <div class="text-center py-4 text-muted">Loading profile...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Update Stage Modal -->
+  <div class="modal fade" id="updateStageModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-white border-secondary">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title fw-bold">Update Project Stage & Deliverables</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="stage-project-ref" />
+          <div class="mb-3">
+            <label class="form-label small text-muted">Current Sprint Stage</label>
+            <select id="stage-select" class="form-select bg-black text-white border-secondary">
+              <option value="inquiry">Inquiry</option>
+              <option value="brief_review">Brief Review</option>
+              <option value="quotation">Quotation Proposal</option>
+              <option value="awaiting_advance">Awaiting Advance</option>
+              <option value="design">UI/UX Design</option>
+              <option value="development">Frontend & Backend Build</option>
+              <option value="testing">Quality Assurance & Testing</option>
+              <option value="awaiting_final_payment">Awaiting Final Payment</option>
+              <option value="delivered">Delivered (Live Deployment)</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small text-muted">Private Staging URL</label>
+            <input id="stage-staging-url" class="form-control bg-black text-white border-secondary" type="url" placeholder="https://staging.pravyuk.com/project" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label small text-muted">Live Production URL</label>
+            <input id="stage-live-url" class="form-control bg-black text-white border-secondary" type="url" placeholder="https://clientdomain.com" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label small text-muted">Client Progress Update Note</label>
+            <textarea id="stage-note" class="form-control bg-black text-white border-secondary" rows="2" placeholder="e.g. Design review signed off. Starting Razorpay integration and mobile responsive build."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary btn-sm" onclick="submitProjectStageUpdate()">Save Updates</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../js/config.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/notifications.js"></script>
   <script src="../js/api.js"></script>
-  <script src="../js/navigation.js"></script>
-  <script src="../js/footer.js"></script>
   <script src="../js/admin.js"></script>
 </body>
 </html>

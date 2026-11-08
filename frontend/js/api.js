@@ -2,7 +2,7 @@
  * Standardized API client for Agency Web Frontend
  */
 
-export async function apiRequest(endpoint, options = {}) {
+async function apiRequest(endpoint, options = {}) {
   const baseUrl = (window.APP_CONFIG && window.APP_CONFIG.apiBaseUrl) || 'http://localhost:5000/api/v1';
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
   const url = `${baseUrl}${cleanEndpoint}`;

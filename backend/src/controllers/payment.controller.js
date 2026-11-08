@@ -689,9 +689,9 @@ export const handleGetReceipt = async (req, res, next) => {
       paymentMethod: payment?.method || 'Online Payment',
       paidAt: order.paidAt,
       agency: {
-        name: 'Agenet Software Agency',
-        address: 'Agency Technology Center, India',
-        supportEmail: 'support@agenet.example.com',
+        name: 'Pravyuk Web Agency',
+        address: 'Bengaluru, Karnataka, India',
+        supportEmail: 'support@pravyuk.com',
       },
       customer: {
         name: req.user.name,

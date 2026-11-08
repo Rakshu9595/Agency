@@ -13,6 +13,7 @@ import quoteRoutes from './routes/quote.routes.js';
 import paymentRoutes from './routes/payment.routes.js';
 import membershipRoutes from './routes/membership.routes.js';
 import dashboardRoutes from './routes/dashboard.routes.js';
+import contentRoutes from './routes/content.routes.js';
 import { notFoundMiddleware } from './middleware/not-found.middleware.js';
 import { errorMiddleware } from './middleware/error.middleware.js';
 
@@ -86,7 +87,7 @@ export const createApp = () => {
         return callback(new Error(`Origin '${origin}' not permitted by CORS policy`), false);
       },
       credentials: true,
-      methods: ['GET', 'POST', 'PATCH', 'OPTIONS'],
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],
       maxAge: 86400, // Cache preflight response for 24 hours
     })
@@ -114,6 +115,7 @@ export const createApp = () => {
   app.use('/api/v1/payments', paymentRoutes);
   app.use('/api/v1/memberships', membershipRoutes);
   app.use('/api/v1/dashboard', dashboardRoutes);
+  app.use('/api/v1/content', contentRoutes);
   app.use('/api/v1/admin', adminRoutes);
 
   // 6. 404 handler for undefined endpoints
