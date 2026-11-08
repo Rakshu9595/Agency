@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Web Application Development | Full-Stack Systems | Pravyuk</title>
+  <meta name="description" content="Full-stack custom web application development with Node.js, Express, MongoDB, secure JWT authentication, and Razorpay billing. Built on-demand with milestones." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://pravyuk.com/pages/custom-web-applications.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Custom Web Application Development | Full-Stack Systems | Pravyuk" />
+  <meta property="og:description" content="Full-stack custom web application development with Node.js, Express, MongoDB, secure JWT authentication, and Razorpay billing. Built on-demand with milestones." />
+  <meta property="og:url" content="https://pravyuk.com/pages/custom-web-applications.html" />
+  <meta property="og:site_name" content="Pravyuk" />
+  <meta property="og:image" content="https://pravyuk.com/assets/images/pravyuk-og.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Custom Web Application Development | Full-Stack Systems | Pravyuk" />
+  <meta name="twitter:description" content="Bespoke dashboards, SaaS MVPs, and client portals built with Node.js and MongoDB." />
+  <meta name="twitter:image" content="https://pravyuk.com/assets/images/pravyuk-og.jpg" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://pravyuk.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Services",
+            "item": "https://pravyuk.com/pages/services.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Custom Web Applications",
+            "item": "https://pravyuk.com/pages/custom-web-applications.html"
+          }
+        ]
+      },
+      {
+        "@type": "Service",
+        "name": "Custom Web Application Development",
+        "serviceType": "Full-Stack Software Engineering",
+        "provider": {
+          "@type": "Organization",
+          "name": "Pravyuk",
+          "url": "https://pravyuk.com"
+        },
+        "description": "End-to-end full-stack web application engineering: frontend UI, Node.js REST API, MongoDB database, customer portals, role-based access, and payment integrations.",
+        "areaServed": ["IN", "US", "GB", "AE", "CA", "AU"],
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "INR",
+          "price": "39999",
+          "description": "Starting from ₹39,999 with custom milestone quotation."
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What tech stack do you use for custom web apps?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Our primary stack includes HTML5, modern vanilla JavaScript / ES6+, Bootstrap 5, Node.js, Express, MongoDB Atlas with Mongoose ODM, and official Razorpay SDKs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is authentication and security handled?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We implement cryptographic password hashing (bcrypt), JSON Web Tokens (JWT), role-based middleware, timing-safe webhook verification, CORS whitelisting, and strict input validation using Zod."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How are project milestones scheduled?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Custom web apps are structured across 3 to 4 verifiable milestones (e.g. Database & API Core, User Portals & UI, Payment Integration, Testing & Handover). Payments are unlocked as each milestone is verified."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do we receive test suites and documentation?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Every custom build includes automated integration test suites, API endpoint contracts, environment variable templates, and step-by-step deployment documentation."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/cards.css" />
+  <!-- Favicon & Brand Icons -->
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+</head>
+<body>
+  <div id="site-navbar"></div>
+
+  <main class="main-page">
+    <nav class="container pt-4" aria-label="breadcrumb">
+      <ol class="breadcrumb small text-muted">
+        <li class="breadcrumb-item"><a href="../index.html" class="text-muted text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item"><a href="services.html" class="text-muted text-decoration-none">Services</a></li>
+        <li class="breadcrumb-item active text-dark" aria-current="page">Custom Web Applications</li>
+      </ol>
+    </nav>
+
+    <header class="page-header text-center">
+      <div class="container">
+        <div class="eyebrow"><i class="bi bi-layers-fill me-1"></i> Full-Stack Engineering</div>
+        <h1>Custom Web Application Development</h1>
+        <p class="subcopy mx-auto" style="max-width: 700px;">
+          Bespoke customer dashboards, client portals, SaaS MVPs, and internal management tools. Built with high-performance Node.js REST APIs, MongoDB databases, and secure milestone verification.
+        </p>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+          <a href="start-project.html?service=custom-software" class="btn btn-primary btn-lg"><i class="bi bi-rocket-takeoff me-1"></i> Request Web App Quote</a>
+          <a href="pricing.html" class="btn btn-outline-light btn-lg">Compare Packages</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="page-shell">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-8">
+            <div class="content-panel p-4 p-md-5 rounded-4 mb-4" style="background: rgba(17, 29, 47, 0.95); border: 1px solid rgba(168, 191, 216, 0.15);">
+              <h2 class="text-white fw-bold h3 mb-3">Turn Complex Workflows Into Reliable Software</h2>
+              <p class="text-muted lead">
+                Off-the-shelf software tools often force your business into rigid workflows, expensive per-seat subscriptions, and proprietary ecosystems you don't control.
+              </p>
+              <p class="text-muted">
+                <strong>Pravyuk</strong> designs tailored full-stack web applications tailored strictly to your business operational model. From client-facing portals and quote approvals to automated billing and role-based permissions, our engineering gives you complete sovereignty over your data and code.
+              </p>
+            </div>
+
+            <div class="content-panel p-4 p-md-5 rounded-4 mb-4" style="background: rgba(17, 29, 47, 0.95); border: 1px solid rgba(168, 191, 216, 0.15);">
+              <h2 class="text-white fw-bold h3 mb-4">Architecture & Deliverables</h2>
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <div class="d-flex gap-3">
+                    <div class="fs-4 text-primary"><i class="bi bi-server"></i></div>
+                    <div>
+                      <h5 class="text-white fw-bold">Node.js & Express REST API</h5>
+                      <p class="text-muted small">Modular route architecture, strict Zod request schema validation, and error-handling middleware.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex gap-3">
+                    <div class="fs-4 text-primary"><i class="bi bi-database"></i></div>
+                    <div>
+                      <h5 class="text-white fw-bold">MongoDB Database Design</h5>
+                      <p class="text-muted small">Normalized Mongoose schemas, compound indexes, relational referencing, and automated timestamping.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex gap-3">
+                    <div class="fs-4 text-primary"><i class="bi bi-shield-lock"></i></div>
+                    <div>
+                      <h5 class="text-white fw-bold">Authentication & Permissions</h5>
+                      <p class="text-muted small">Secure password hashing with bcrypt, JWT authorization tokens, and granular admin/client role guards.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex gap-3">
+                    <div class="fs-4 text-primary"><i class="bi bi-check2-all"></i></div>
+                    <div>
+                      <h5 class="text-white fw-bold">Automated Test Coverage</h5>
+                      <p class="text-muted small">Comprehensive unit and integration test suites validating endpoints, security, and edge failure cases.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="content-panel p-4 p-md-5 rounded-4 mb-4" style="background: rgba(17, 29, 47, 0.95); border: 1px solid rgba(168, 191, 216, 0.15);">
+              <h2 class="text-white fw-bold h3 mb-4">Milestone-Driven Development</h2>
+              <div class="timeline-step mb-3 p-3 rounded-3" style="background: rgba(10, 18, 30, 0.6); border-left: 4px solid #3ea5ff;">
+                <h5 class="text-white fw-bold mb-1">Milestone 1: Architecture, Schemas & API Foundation (Sprint 1)</h5>
+                <p class="text-muted small mb-0">Database models, authentication endpoints, route security, and integration test setup.</p>
+              </div>
+              <div class="timeline-step mb-3 p-3 rounded-3" style="background: rgba(10, 18, 30, 0.6); border-left: 4px solid #3ea5ff;">
+                <h5 class="text-white fw-bold mb-1">Milestone 2: Client Dashboards & Interactive Features (Sprint 2)</h5>
+                <p class="text-muted small mb-0">Frontend client views, data tables, inquiry intake, and client status tracking portals.</p>
+              </div>
+              <div class="timeline-step mb-3 p-3 rounded-3" style="background: rgba(10, 18, 30, 0.6); border-left: 4px solid #3ea5ff;">
+                <h5 class="text-white fw-bold mb-1">Milestone 3: Razorpay Webhook Billing & Verification (Sprint 3)</h5>
+                <p class="text-muted small mb-0">Cryptographic signature verification, order lifecycle, tax receipt generation, and admin controls.</p>
+              </div>
+              <div class="timeline-step p-3 rounded-3" style="background: rgba(10, 18, 30, 0.6); border-left: 4px solid #10b981;">
+                <h5 class="text-white fw-bold mb-1">Milestone 4: Cloud Staging Verification & Production Handover (Sprint 4)</h5>
+                <p class="text-muted small mb-0">Final end-to-end testing, cloud deployment (Render/AWS), SSL binding, and 100% repository transfer.</p>
+              </div>
+            </div>
+
+            <div class="content-panel p-4 p-md-5 rounded-4 mb-4" style="background: rgba(17, 29, 47, 0.95); border: 1px solid rgba(168, 191, 216, 0.15);">
+              <h2 class="text-white fw-bold h3 mb-4">Web App FAQs</h2>
+              <div class="accordion" id="appFaq">
+                <div class="accordion-item mb-3 border-0 rounded-3 overflow-hidden">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#af1">
+                      What tech stack do you use for custom web apps?
+                    </button>
+                  </h3>
+                  <div id="af1" class="accordion-collapse collapse show" data-bs-parent="#appFaq">
+                    <div class="accordion-body text-muted">
+                      Our primary stack includes HTML5, modern vanilla JavaScript / ES6+, Bootstrap 5, Node.js, Express, MongoDB Atlas with Mongoose ODM, and official Razorpay SDKs.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item mb-3 border-0 rounded-3 overflow-hidden">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#af2">
+                      How is authentication and security handled?
+                    </button>
+                  </h3>
+                  <div id="af2" class="accordion-collapse collapse" data-bs-parent="#appFaq">
+                    <div class="accordion-body text-muted">
+                      We implement cryptographic password hashing (bcrypt), JSON Web Tokens (JWT), role-based middleware, timing-safe webhook verification, CORS whitelisting, and strict input validation using Zod.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item mb-3 border-0 rounded-3 overflow-hidden">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#af3">
+                      How are project milestones scheduled?
+                    </button>
+                  </h3>
+                  <div id="af3" class="accordion-collapse collapse" data-bs-parent="#appFaq">
+                    <div class="accordion-body text-muted">
+                      Custom web apps are structured across 3 to 4 verifiable milestones (e.g. Database & API Core, User Portals & UI, Payment Integration, Testing & Handover). Payments are unlocked as each milestone is verified.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item mb-3 border-0 rounded-3 overflow-hidden">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#af4">
+                      Do we receive test suites and documentation?
+                    </button>
+                  </h3>
+                  <div id="af4" class="accordion-collapse collapse" data-bs-parent="#appFaq">
+                    <div class="accordion-body text-muted">
+                      Yes. Every custom build includes automated integration test suites, API endpoint contracts, environment variable templates, and step-by-step deployment documentation.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <aside class="sidebar-card p-4 rounded-4 shadow-lg sticky-top" style="top: 100px; background: rgba(18, 37, 61, 0.95); border: 1px solid rgba(168, 191, 216, 0.2);">
+              <span class="badge bg-primary mb-2">Bespoke Engineering</span>
+              <h3 class="text-white fw-bold h4 mb-1">Custom Web App</h3>
+              <div class="my-3">
+                <span class="display-6 fw-bold text-primary">₹39,999</span>
+                <span class="text-muted small">/ starting</span>
+              </div>
+              <p class="text-muted small mb-4">Complete full-stack architecture with REST API, database schemas, authentication, and client dashboards.</p>
+
+              <div class="details-list text-muted small d-flex flex-column gap-2 mb-4">
+                <div><strong class="text-white">Delivery Model:</strong> Itemized Milestones</div>
+                <div><strong class="text-white">Typical Turnaround:</strong> 3–6 Weeks</div>
+                <div><strong class="text-white">Tech Stack:</strong> Node.js, Express, MongoDB</div>
+                <div><strong class="text-white">Testing:</strong> Automated Node test runner</div>
+                <div><strong class="text-white">Warranty:</strong> 30 Days Technical SLA</div>
+                <div><strong class="text-white">Payment:</strong> Milestone-based releases</div>
+              </div>
+
+              <div class="d-grid gap-2">
+                <a href="start-project.html?service=custom-software" class="btn btn-primary btn-lg">
+                  <i class="bi bi-rocket-takeoff me-1"></i> Request Custom Scope
+                </a>
+                <a href="pricing.html" class="btn btn-outline-light">Compare Other Packages</a>
+              </div>
+
+              <hr class="border-secondary border-opacity-25 my-4" />
+              <div class="small text-muted">
+                <div class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-shield-check text-success"></i><span>100% Client Code Ownership</span></div>
+                <div class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-receipt text-primary"></i><span>Razorpay Verified Milestone Escrow</span></div>
+                <div class="d-flex align-items-center gap-2"><i class="bi bi-lock text-info"></i><span>Non-Disclosure Protection</span></div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/notifications.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/footer.js"></script>
+</body>
+</html>

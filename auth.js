@@ -1,0 +1,65 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(9, 18, 30, 0.8);
+  border-bottom: 1px solid rgba(168, 191, 216, 0.12);
+}
+
+.navbar {
+  padding: 0.9rem 0;
+}
+
+.navbar-brand {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-size: 1.35rem;
+  color: var(--text-primary);
+}
+
+.navbar-brand span {
+  color: var(--primary);
+}
+
+.navbar-nav {
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.navbar-nav .nav-link {
+  color: var(--text-muted);
+  padding: 0.5rem 0.8rem !important;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.04);
+}
+
+.navbar-toggler {
+  border-color: rgba(255,255,255,0.15);
+}
+
+.navbar-toggler-icon {
+  filter: invert(1);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nav-actions .btn {
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+}
+
+.mobile-nav-toggle {
+  display: none;
+}

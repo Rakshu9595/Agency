@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Billing, Invoices & Receipts | Pravyuk</title>
+  <meta name="description" content="View verified invoices, transaction receipts, refund requests, and payment history for your software services." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/cards.css" />
+  <!-- Favicon & Brand Icons -->
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+</head>
+<body>
+  <div id="site-navbar"></div>
+  <main class="main-page">
+    <header class="page-header">
+      <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+          <div>
+            <div class="eyebrow">Financial Portal</div>
+            <h1>Billing, Receipts & Invoices</h1>
+            <p class="subcopy mb-0">Authoritative payment records verified through Razorpay payment gateway.</p>
+          </div>
+          <div>
+            <a href="dashboard.html" class="btn btn-outline-light"><i class="bi bi-arrow-left me-1"></i> Back to Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="page-shell">
+      <div class="container">
+        <!-- Billing Table Card -->
+        <div class="card p-4 border-0 shadow" style="background: rgba(17, 29, 47, 0.95); border: 1px solid rgba(168, 191, 216, 0.15); border-radius: 16px;">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="text-white fw-bold mb-0"><i class="bi bi-credit-card-2-front me-2 text-primary"></i>Transaction History</h4>
+            <span class="text-muted small">Currency: <strong>INR (₹)</strong></span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0" style="background: transparent;">
+              <thead>
+                <tr class="text-muted small border-bottom border-secondary border-opacity-25">
+                  <th>Date</th>
+                  <th>Order Reference</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="billing-history-tbody">
+                <tr>
+                  <td colspan="6" class="text-center py-4 text-muted">
+                    <span class="spinner-border spinner-border-sm me-2"></span>Loading payment records...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty State -->
+          <div id="billing-empty-state" class="text-center py-5 d-none">
+            <div class="fs-1 text-muted mb-3"><i class="bi bi-receipt"></i></div>
+            <h5 class="text-white fw-bold">No Transactions Found</h5>
+            <p class="text-muted small mb-3">You have not completed any payments yet.</p>
+            <a href="pricing.html" class="btn btn-primary btn-sm">Explore Service Packages</a>
+          </div>
+        </div>
+
+        <!-- Billing Policies & Information -->
+        <div class="row g-4 mt-3">
+          <div class="col-md-6">
+            <div class="card p-4 border-0 h-100 shadow-sm" style="background: rgba(18, 37, 61, 0.6); border-radius: 16px;">
+              <h5 class="text-white fw-bold mb-2"><i class="bi bi-shield-lock me-2 text-primary"></i>Payment Security</h5>
+              <p class="text-muted small mb-0">
+                All card and UPI transactions are tokenized and processed through Razorpay. We never store raw card numbers, PINs, or CVV credentials on our servers.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card p-4 border-0 h-100 shadow-sm" style="background: rgba(18, 37, 61, 0.6); border-radius: 16px;">
+              <h5 class="text-white fw-bold mb-2"><i class="bi bi-file-earmark-text me-2 text-primary"></i>Refund Eligibility</h5>
+              <p class="text-muted small mb-0">
+                Refunds are governed by our <a href="refund-policy.html" class="text-primary text-decoration-none">Refund Policy</a>. You can submit a refund inquiry directly for any eligible paid order using the action button in the table above.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/notifications.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/checkout.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/footer.js"></script>
+  <script src="../js/billing.js"></script>
+</body>
+</html>

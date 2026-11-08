@@ -1,0 +1,75 @@
+[build]
+  publish = "frontend"
+
+[[redirects]]
+  from = "/services/landing-page-development"
+  to = "/pages/landing-page-development.html"
+  status = 200
+
+[[redirects]]
+  from = "/services/business-website-development"
+  to = "/pages/business-website-development.html"
+  status = 200
+
+[[redirects]]
+  from = "/services/ecommerce-development"
+  to = "/pages/ecommerce-development.html"
+  status = 200
+
+[[redirects]]
+  from = "/services/custom-web-applications"
+  to = "/pages/custom-web-applications.html"
+  status = 200
+
+[[redirects]]
+  from = "/services/website-redesign"
+  to = "/pages/website-redesign.html"
+  status = 200
+
+[[redirects]]
+  from = "/services/website-maintenance"
+  to = "/pages/website-maintenance.html"
+  status = 200
+
+[[redirects]]
+  from = "/services/ui-ux-design"
+  to = "/pages/ui-ux-design.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/website-development-cost-india"
+  to = "/pages/blog-website-cost-india.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/startup-website-guide"
+  to = "/pages/blog-startup-website-guide.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/custom-website-vs-website-builder"
+  to = "/pages/blog-custom-vs-builder.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/how-to-write-website-project-brief"
+  to = "/pages/blog-website-brief-guide.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/website-redesign-checklist"
+  to = "/pages/blog-website-redesign-checklist.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

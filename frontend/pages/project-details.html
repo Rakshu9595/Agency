@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Case Study & Engineering Details | Pravyuk</title>
+  <meta name="description" content="Technical architecture, deliverables, and performance metrics for a Pravyuk website development engagement." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://pravyuk.com/pages/project-details.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Project Case Study & Engineering Details | Pravyuk" />
+  <meta property="og:description" content="Technical architecture, deliverables, and performance metrics for a Pravyuk website development engagement." />
+  <meta property="og:url" content="https://pravyuk.com/pages/project-details.html" />
+  <meta property="og:site_name" content="Pravyuk" />
+  <meta property="og:image" content="https://pravyuk.com/assets/images/pravyuk-og.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Project Case Study & Engineering Details | Pravyuk" />
+  <meta name="twitter:description" content="Technical architecture, deliverables, and performance metrics for a Pravyuk website development engagement." />
+  <meta name="twitter:image" content="https://pravyuk.com/assets/images/pravyuk-og.jpg" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://pravyuk.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Portfolio",
+            "item": "https://pravyuk.com/pages/projects.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Case Study",
+            "item": "https://pravyuk.com/pages/project-details.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/cards.css" />
+  <!-- Favicon & Brand Icons -->
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+</head>
+<body>
+  <div id="site-navbar"></div>
+  <main class="main-page">
+    <header class="page-header">
+      <div class="container">
+        <div class="eyebrow" id="proj-category">Case Study</div>
+        <h1 id="proj-title">FintechFlow — Smart Wealth Ledger</h1>
+        <p class="subcopy" id="proj-summary">A secure cloud platform facilitating real-time transactions, automated invoice reconciliation, and customer analytics.</p>
+      </div>
+    </header>
+
+    <section class="page-shell">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-8">
+            <div class="content-panel case-study-body p-4 rounded" style="background: rgba(17, 29, 47, 0.95); border: 1px solid rgba(168, 191, 216, 0.15);">
+              <div class="mb-4">
+                <h3 class="text-white fw-bold mb-2">Architecture & Execution</h3>
+                <p id="proj-description" class="text-muted">
+                  We engineered an end-to-end cloud platform with strict authorization boundaries, verified payment checkout webhooks, and sub-100ms response latencies.
+                </p>
+              </div>
+
+              <!-- Metrics Grid -->
+              <div class="row g-3 mb-4" id="proj-metrics-container">
+                <div class="col-sm-4">
+                  <div class="p-3 rounded text-center" style="background: rgba(18, 37, 61, 0.7);">
+                    <div class="fs-4 fw-bold text-primary">99.98%</div>
+                    <span class="text-muted small">System Uptime</span>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="p-3 rounded text-center" style="background: rgba(18, 37, 61, 0.7);">
+                    <div class="fs-4 fw-bold text-primary">₹4.2 Cr+</div>
+                    <span class="text-muted small">Processed Vol</span>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="p-3 rounded text-center" style="background: rgba(18, 37, 61, 0.7);">
+                    <div class="fs-4 fw-bold text-primary">&lt; 85ms</div>
+                    <span class="text-muted small">Mean Latency</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tech Stack & Capabilities -->
+              <h4 class="text-white fw-bold mb-3">Key Capabilities</h4>
+              <ul id="proj-features-list" class="list-unstyled text-muted">
+                <li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-check2 text-success"></i><span>Role-based access controls and encrypted transaction ledger</span></li>
+                <li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-check2 text-success"></i><span>Automated invoice generation and Razorpay webhook reconciliation</span></li>
+                <li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-check2 text-success"></i><span>Interactive customer financial dashboard and statements</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <aside class="sidebar-card page-sidebar p-4 rounded shadow" style="background: rgba(18, 37, 61, 0.9); border: 1px solid rgba(168, 191, 216, 0.2);">
+              <h4 class="text-white fw-bold mb-3">Engagement Overview</h4>
+              <div class="mb-3">
+                <span class="text-muted small d-block">Client Partner:</span>
+                <strong id="proj-client" class="text-white">Fintech Ventures Global</strong>
+              </div>
+              <div class="mb-3">
+                <span class="text-muted small d-block">Sprint Timeline:</span>
+                <strong id="proj-timeline" class="text-white">6 weeks</strong>
+              </div>
+              <div class="mb-4">
+                <span class="text-muted small d-block mb-2">Technology Stack:</span>
+                <div id="proj-tech-stack" class="d-flex flex-wrap gap-1">
+                  <span class="badge bg-dark border border-secondary border-opacity-25 text-info">Node.js</span>
+                  <span class="badge bg-dark border border-secondary border-opacity-25 text-info">MongoDB</span>
+                  <span class="badge bg-dark border border-secondary border-opacity-25 text-info">Razorpay</span>
+                  <span class="badge bg-dark border border-secondary border-opacity-25 text-info">Bootstrap 5</span>
+                </div>
+              </div>
+
+              <div class="d-grid gap-2">
+                <a href="start-project.html" class="btn btn-primary"><i class="bi bi-send me-1"></i> Start Similar Project</a>
+                <a href="projects.html" class="btn btn-outline-light"><i class="bi bi-arrow-left me-1"></i> Back to Work</a>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/footer.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const slug = urlParams.get('project') || 'fintech-flow';
+
+      try {
+        const res = await apiRequest(`/projects/${slug}`);
+        if (res.success && res.data && res.data.project) {
+          const p = res.data.project;
+          document.getElementById('proj-category').textContent = p.category || 'Case Study';
+          document.getElementById('proj-title').textContent = p.title;
+          document.getElementById('proj-summary').textContent = p.summary;
+          document.getElementById('proj-client').textContent = p.client || 'Partner Enterprise';
+          document.getElementById('proj-timeline').textContent = p.timeline || '4-6 weeks';
+
+          if (p.metrics && p.metrics.length > 0) {
+            document.getElementById('proj-metrics-container').innerHTML = p.metrics
+              .map(m => `
+                <div class="col-sm-4">
+                  <div class="p-3 rounded text-center" style="background: rgba(18, 37, 61, 0.7);">
+                    <div class="fs-4 fw-bold text-primary">${m.value}</div>
+                    <span class="text-muted small">${m.label}</span>
+                  </div>
+                </div>
+              `).join('');
+          }
+
+          if (p.techStack && p.techStack.length > 0) {
+            document.getElementById('proj-tech-stack').innerHTML = p.techStack
+              .map(t => `<span class="badge bg-dark border border-secondary border-opacity-25 text-info">${t}</span>`)
+              .join('');
+          }
+
+          if (p.features && p.features.length > 0) {
+            document.getElementById('proj-features-list').innerHTML = p.features
+              .map(f => `<li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-check2 text-success"></i><span>${f}</span></li>`)
+              .join('');
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to load project details:', err);
+      }
+    });
+  </script>
+</body>
+</html>

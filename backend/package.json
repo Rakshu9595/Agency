@@ -1,0 +1,39 @@
+{
+  "name": "agency-website-backend",
+  "version": "1.0.0",
+  "description": "Secure, production-ready backend for Agency Website lead capture and inquiry management",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test tests/**/*.test.js",
+    "test:watch": "node --test --watch tests/**/*.test.js"
+  },
+  "keywords": [
+    "agency",
+    "backend",
+    "express",
+    "mongodb",
+    "mongoose",
+    "rest-api",
+    "lead-generation"
+  ],
+  "author": "Agency Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "mongoose": "^8.9.5",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

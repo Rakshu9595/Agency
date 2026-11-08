@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Commerce Website Development Services | Online Stores | Pravyuk</title>
+  <meta name="description" content="Custom e-commerce website development with high-speed catalog, cart drawer, Razorpay checkout, and automated receipts. Built on-demand with milestones." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://pravyuk.com/pages/ecommerce-development.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="E-Commerce Website Development Services | Online Stores | Pravyuk" />
+  <meta property="og:description" content="Custom e-commerce website development with high-speed catalog, cart drawer, Razorpay checkout, and automated receipts. Built on-demand with milestones." />
+  <meta property="og:url" content="https://pravyuk.com/pages/ecommerce-development.html" />
+  <meta property="og:site_name" content="Pravyuk" />
+  <meta property="og:image" content="https://pravyuk.com/assets/images/pravyuk-og.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="E-Commerce Website Development Services | Online Stores | Pravyuk" />
+  <meta name="twitter:description" content="Custom storefronts with Razorpay payment gateways, inventory sync, and zero bloat." />
+  <meta name="twitter:image" content="https://pravyuk.com/assets/images/pravyuk-og.jpg" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://pravyuk.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Services",
+            "item": "https://pravyuk.com/pages/services.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "E-Commerce Development",
+            "item": "https://pravyuk.com/pages/ecommerce-development.html"
+          }
+        ]
+      },
+      {
+        "@type": "Service",
+        "name": "E-Commerce Website Development",
+        "serviceType": "E-Commerce Engineering",
+        "provider": {
+          "@type": "Organization",
+          "name": "Pravyuk",
+          "url": "https://pravyuk.com"
+        },
+        "description": "High-speed custom storefront development with product catalogs, shopping carts, Razorpay gateway integration, and automated invoice delivery.",
+        "areaServed": ["IN", "US", "GB", "AE", "CA", "AU"],
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "INR",
+          "price": "24999",
+          "description": "Starting from ₹24,999 with custom itemized quotation."
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What payment gateways do you integrate?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We provide official integration with Razorpay (supporting UPI, Credit/Debit cards, Netbanking, and Wallets) for Indian and international transactions, as well as Stripe integration upon request."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you charge recurring transaction commissions?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Pravyuk charges zero sales commissions or platform retainers. Payments process directly into your own Razorpay or payment provider merchant account."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How are orders and inventory managed?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We build lightweight administrative interfaces and automated webhook handlers that generate tax invoices, email purchase confirmations, and track inventory counts in your MongoDB database."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the checkout flow optimized for mobile devices?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Our checkout utilizes mobile-first bottom sheets and one-click UPI intent flows to minimize cart abandonment on smartphones."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/cards.css" />
+  <!-- Favicon & Brand Icons -->
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+</head>
+<body>
+  <div id="site-navbar"></div>
+
+  <main class="main-page">
+    <nav class="container pt-4" aria-label="breadcrumb">
+      <ol class="breadcrumb small text-muted">
+        <li class="breadcrumb-item"><a href="../index.html" class="text-muted text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item"><a href="services.html" class="text-muted text-decoration-none">Services</a></li>
+        <li class="breadcrumb-item active text-dark" aria-current="page">E-Commerce Development</li>
+      </ol>
+    </nav>
+
+    <header class="page-header text-center">
+      <div class="container">
+        <div class="eyebrow"><i class="bi bi-cart3 me-1"></i> Storefront Engineering</div>
+        <h1>E-Commerce Website Development Services</h1>
+        <p class="subcopy mx-auto" style="max-width: 700px;">
+          High-speed custom storefronts built for maximum checkout completion. Product catalogs, responsive cart drawers, official Razorpay integration, and zero recurring platform commissions.
+        </p>
+        <div class="d-flex justify-content-center gap-3 mt-4">
+          <a href="start-project.html?service=e-commerce-website" class="btn btn-primary btn-lg"><i class="bi bi-rocket-takeoff me-1"></i> Request E-Commerce Quote</a>
+          <a href="pricing.html" class="btn btn-outline-light btn-lg">Compare Packages</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="page-shell">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-8">
+            <div class="content-panel p-4 p-md-5 rounded-4 mb-4" style="background: rgba(17, 29, 47, 0.95); border: 1px solid rgba(168, 191, 216, 0.15);">
+              <h2 class="text-white fw-bold h3 mb-3">Maximize Checkout Conversions</h2>
+              <p class="text-muted lead">
+                Generic e-commerce templates are weighed down by heavy scripts, slow database queries, and multi-step checkouts that cause customers to abandon their carts.
+              </p>
+              <p class="text-muted">
+                <strong>Pravyuk</strong> builds custom, headless e-commerce storefronts engineered with clean HTML5, modern CSS, and lightweight Node.js/MongoDB backends. With instant cart updates, real-time Razorpay checkout verification, and automated tax receipts, your online store operates at maximum velocity.
+              </p>
+            </div>
+
+            <div class="content-panel p-4 p-md-5 rounded-4 mb-4" style="background: rgba(17, 29, 47, 0.95); border: 1px solid rgba(168, 191, 216, 0.15);">
+              <h2 class="text-white fw-bold h3 mb-4">Core Storefront Deliverables</h2>
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <div class="d-flex gap-3">
+                    <div class="fs-4 text-primary"><i class="bi bi-grid-3x3-gap"></i></div>
+                    <div>
+                      <h5 class="text-white fw-bold">Dynamic Product Catalog</h5>
+                      <p class="text-muted small">Category filtering, instant search, product image galleries, variant selection, and inventory badges.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex gap-3">
+                    <div class="fs-4 text-primary"><i class="bi bi-credit-card-2-front"></i></div>
+                    <div>
+                      <h5 class="text-white fw-bold">Razorpay Payment Integration</h5>
+                      <p class="text-muted small">Seamless checkout with UPI, Credit/Debit cards, Netbanking, and cryptographic HMAC webhook verification.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex gap-3">
+                    <div class="fs-4 text-primary"><i class="bi bi-bag-check"></i></div>
+                    <div>
+                      <h5 class="text-white fw-bold">Slide-Over Cart Drawer</h5>
+                      <p class="text-muted small">Zero-page-reload cart updates, quantity selectors, promotional coupon engine, and order summaries.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex gap-3">
+                    <div class="fs-4 text-primary"><i class="bi bi-receipt"></i></div>
+                    <div>
+                      <h5 class="text-white fw-bold">Automated Invoicing & Emails</h5>
+                      <p class="text-muted small">Instant order receipts, downloadable customer invoices, and automated transactional email alerts.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="content-panel p-4 p-md-5 rounded-4 mb-4" style="background: rgba(17, 29, 47, 0.95); border: 1px solid rgba(168, 191, 216, 0.15);">
+              <h2 class="text-white fw-bold h3 mb-4">Development Sprint Sequence</h2>
+              <div class="timeline-step mb-3 p-3 rounded-3" style="background: rgba(10, 18, 30, 0.6); border-left: 4px solid #3ea5ff;">
+                <h5 class="text-white fw-bold mb-1">Week 1: Catalog Architecture & Design Artboards</h5>
+                <p class="text-muted small mb-0">We structure your SKU taxonomy, categories, checkout flow, and issue your formal proposal quote.</p>
+              </div>
+              <div class="timeline-step mb-3 p-3 rounded-3" style="background: rgba(10, 18, 30, 0.6); border-left: 4px solid #3ea5ff;">
+                <h5 class="text-white fw-bold mb-1">Week 2: Frontend Storefront & Razorpay Gateway Sprints</h5>
+                <p class="text-muted small mb-0">After 50% kickoff deposit, our engineers develop the responsive frontend, cart drawer, and backend webhook APIs.</p>
+              </div>
+              <div class="timeline-step p-3 rounded-3" style="background: rgba(10, 18, 30, 0.6); border-left: 4px solid #10b981;">
+                <h5 class="text-white fw-bold mb-1">Week 3: Staging Testing, Gateway Verification & Live Launch</h5>
+                <p class="text-muted small mb-0">Run live test transactions, unlock milestone balance, connect merchant gateway credentials, and deploy.</p>
+              </div>
+            </div>
+
+            <div class="content-panel p-4 p-md-5 rounded-4 mb-4" style="background: rgba(17, 29, 47, 0.95); border: 1px solid rgba(168, 191, 216, 0.15);">
+              <h2 class="text-white fw-bold h3 mb-4">E-Commerce FAQs</h2>
+              <div class="accordion" id="ecomFaq">
+                <div class="accordion-item mb-3 border-0 rounded-3 overflow-hidden">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ef1">
+                      What payment gateways do you integrate?
+                    </button>
+                  </h3>
+                  <div id="ef1" class="accordion-collapse collapse show" data-bs-parent="#ecomFaq">
+                    <div class="accordion-body text-muted">
+                      We provide official integration with Razorpay (supporting UPI, Credit/Debit cards, Netbanking, and Wallets) for Indian and international transactions, as well as Stripe integration upon request.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item mb-3 border-0 rounded-3 overflow-hidden">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ef2">
+                      Do you charge recurring transaction commissions?
+                    </button>
+                  </h3>
+                  <div id="ef2" class="accordion-collapse collapse" data-bs-parent="#ecomFaq">
+                    <div class="accordion-body text-muted">
+                      No. Pravyuk charges zero sales commissions or platform retainers. Payments process directly into your own Razorpay or payment provider merchant account.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item mb-3 border-0 rounded-3 overflow-hidden">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ef3">
+                      How are orders and inventory managed?
+                    </button>
+                  </h3>
+                  <div id="ef3" class="accordion-collapse collapse" data-bs-parent="#ecomFaq">
+                    <div class="accordion-body text-muted">
+                      We build lightweight administrative interfaces and automated webhook handlers that generate tax invoices, email purchase confirmations, and track inventory counts in your MongoDB database.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item mb-3 border-0 rounded-3 overflow-hidden">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ef4">
+                      Is the checkout flow optimized for mobile devices?
+                    </button>
+                  </h3>
+                  <div id="ef4" class="accordion-collapse collapse" data-bs-parent="#ecomFaq">
+                    <div class="accordion-body text-muted">
+                      Yes. Our checkout utilizes mobile-first bottom sheets and one-click UPI intent flows to minimize cart abandonment on smartphones.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <aside class="sidebar-card p-4 rounded-4 shadow-lg sticky-top" style="top: 100px; background: rgba(18, 37, 61, 0.95); border: 1px solid rgba(168, 191, 216, 0.2);">
+              <span class="badge bg-primary mb-2">Commerce Package</span>
+              <h3 class="text-white fw-bold h4 mb-1">E-Commerce Storefront</h3>
+              <div class="my-3">
+                <span class="display-6 fw-bold text-primary">₹24,999</span>
+                <span class="text-muted small">/ starting</span>
+              </div>
+              <p class="text-muted small mb-4">Complete online store with product catalog, cart drawer, Razorpay checkout, and automated receipts.</p>
+
+              <div class="details-list text-muted small d-flex flex-column gap-2 mb-4">
+                <div><strong class="text-white">Delivery Model:</strong> Milestone Proposal</div>
+                <div><strong class="text-white">Typical Turnaround:</strong> 2–3 Weeks</div>
+                <div><strong class="text-white">Gateway:</strong> Razorpay UPI & Cards</div>
+                <div><strong class="text-white">Receipts:</strong> Automated Tax Invoices</div>
+                <div><strong class="text-white">Warranty:</strong> 30 Days Technical SLA</div>
+                <div><strong class="text-white">Payment:</strong> 50% Kickoff / 50% Milestone</div>
+              </div>
+
+              <div class="d-grid gap-2">
+                <a href="start-project.html?service=e-commerce-website" class="btn btn-primary btn-lg">
+                  <i class="bi bi-rocket-takeoff me-1"></i> Request This Website
+                </a>
+                <a href="pricing.html" class="btn btn-outline-light">Compare Other Packages</a>
+              </div>
+
+              <hr class="border-secondary border-opacity-25 my-4" />
+              <div class="small text-muted">
+                <div class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-shield-check text-success"></i><span>100% Client Code Ownership</span></div>
+                <div class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-receipt text-primary"></i><span>Razorpay Verified Milestone Escrow</span></div>
+                <div class="d-flex align-items-center gap-2"><i class="bi bi-lock text-info"></i><span>Non-Disclosure Protection</span></div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/notifications.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/footer.js"></script>
+</body>
+</html>

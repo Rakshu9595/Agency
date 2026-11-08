@@ -1,0 +1,21 @@
+# robots.txt for Pravyuk (https://pravyuk.com)
+User-agent: *
+Allow: /
+Allow: /css/
+Allow: /js/
+Allow: /assets/
+
+# Disallow private dashboards, billing, authentication, and transient payment status pages
+Disallow: /pages/admin.html
+Disallow: /pages/dashboard.html
+Disallow: /pages/billing.html
+Disallow: /pages/login.html
+Disallow: /pages/register.html
+Disallow: /pages/forgot-password.html
+Disallow: /pages/reset-password.html
+Disallow: /pages/payment-success.html
+Disallow: /pages/payment-failure.html
+Disallow: /api/
+
+# Canonical XML Sitemap
+Sitemap: https://pravyuk.com/sitemap.xml

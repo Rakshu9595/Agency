@@ -1,0 +1,101 @@
+.form-group,
+.form-floating {
+  margin-bottom: 1rem;
+}
+
+.form-control,
+.form-select,
+textarea.form-control {
+  width: 100%;
+  background: rgba(12, 21, 34, 0.9);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: 12px;
+  padding: 0.8rem 0.9rem;
+}
+
+.form-control::placeholder,
+textarea.form-control::placeholder {
+  color: var(--text-soft);
+}
+
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus {
+  border-color: rgba(62,165,255,0.8);
+  box-shadow: 0 0 0 0.2rem rgba(62,165,255,0.15);
+  outline: none;
+}
+
+textarea.form-control {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.form-label {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1rem 0;
+}
+
+.form-check-input {
+  width: 1rem;
+  height: 1rem;
+}
+
+.form-check-label {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.input-hint {
+  font-size: 0.82rem;
+  color: var(--text-soft);
+  margin-top: 0.4rem;
+}
+
+.auth-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.form-status {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  font-size: 0.92rem;
+}
+
+.form-status.show {
+  display: block;
+}
+
+.form-status.error {
+  background: rgba(255, 107, 107, 0.08);
+  border: 1px solid rgba(255,107,107,0.28);
+  color: #ffd2d2;
+}
+
+.form-status.success {
+  background: rgba(56, 211, 159, 0.08);
+  border: 1px solid rgba(56, 211, 159, 0.28);
+  color: #d9ffef;
+}
+
+.form-status.info {
+  background: rgba(62, 165, 255, 0.08);
+  border: 1px solid rgba(62,165,255,0.25);
+  color: #dfeeff;
+}

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agenet | Software Agency</title>
+    <meta name="description" content="Agenet builds digital products, apps, campaigns, and customer experiences for scaling businesses." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/cards.css" />
+  </head>
+  <body>
+    <div id="site-navbar"></div>
+
+    <main>
+      <section class="hero-section">
+        <div class="container">
+          <div class="row align-items-center gx-5">
+            <div class="col-lg-7">
+              <div class="eyebrow">Growth-focused digital systems</div>
+              <h1>Design, build and scale digital products that convert.</h1>
+              <p class="lead text-muted">
+                We help founders and teams launch better experiences, stronger funnels, and cleaner operations.
+              </p>
+              <div class="d-flex flex-wrap gap-3 mt-4">
+                <a href="pages/start-project.html" class="btn btn-primary btn-lg">Book a strategy call</a>
+                <a href="pages/projects.html" class="btn btn-outline-light btn-lg">See our work</a>
+              </div>
+              <div class="hero-stats row mt-5">
+                <div class="col-sm-4">
+                  <strong>120+</strong>
+                  <span>Projects shipped</span>
+                </div>
+                <div class="col-sm-4">
+                  <strong>4.9/5</strong>
+                  <span>Client rating</span>
+                </div>
+                <div class="col-sm-4">
+                  <strong>18</strong>
+                  <span>Launch partners</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="hero-card">
+                <div class="mini-panel">
+                  <span class="label">Pipeline health</span>
+                  <strong>88%</strong>
+                </div>
+                <div class="dashboard-preview">
+                  <div class="bar-group">
+                    <span style="height: 35%"></span>
+                    <span style="height: 48%"></span>
+                    <span style="height: 62%"></span>
+                    <span style="height: 75%"></span>
+                    <span style="height: 92%"></span>
+                    <span style="height: 100%"></span>
+                  </div>
+                  <div class="chart-card">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span>Conversions</span>
+                      <span class="up">+24%</span>
+                    </div>
+                    <div class="progress-track"><div class="progress-bar"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">What we do</span>
+            <h2>Digital systems that support real growth.</h2>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-6 col-xl-3">
+              <div class="info-card">
+                <div class="icon-wrap"><i class="bi bi-code-slash"></i></div>
+                <h3>Web apps</h3>
+                <p>Custom portals, SaaS dashboards, and customer platforms tailored to your growth goals.</p>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <div class="info-card">
+                <div class="icon-wrap"><i class="bi bi-bullseye"></i></div>
+                <h3>Brand systems</h3>
+                <p>Positioning, messaging strategy, and visual systems designed to attract and convert customers.</p>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <div class="info-card">
+                <div class="icon-wrap"><i class="bi bi-cart3"></i></div>
+                <h3>Growth funnels</h3>
+                <p>Landing pages, CRM flows, email sequences, and checkout experiences built for performance.</p>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-3">
+              <div class="info-card">
+                <div class="icon-wrap"><i class="bi bi-graph-up-arrow"></i></div>
+                <h3>Analytics</h3>
+                <p>Operational dashboards and reporting layers that make customer and revenue data actionable.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section muted-section">
+        <div class="container">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+              <div class="section-heading left-align">
+                <span class="eyebrow">Why agencies choose us</span>
+                <h2>Built for velocity, clarity, and long-term retainers.</h2>
+              </div>
+              <ul class="feature-list">
+                <li><i class="bi bi-check-circle-fill"></i> Clear project briefs and delivery milestones</li>
+                <li><i class="bi bi-check-circle-fill"></i> Senior designers and engineers in one workflow</li>
+                <li><i class="bi bi-check-circle-fill"></i> Production-ready front-end and backend-ready contracts</li>
+                <li><i class="bi bi-check-circle-fill"></i> Transparent communication and strategic support</li>
+              </ul>
+            </div>
+            <div class="col-lg-6">
+              <div class="stack-card">
+                <div class="stack-row">
+                  <span>Strategy</span>
+                  <span>UX</span>
+                  <span>Dev</span>
+                </div>
+                <div class="stack-row">
+                  <span>Brand</span>
+                  <span>CRM</span>
+                  <span>SEO</span>
+                </div>
+                <div class="stack-row">
+                  <span>Analytics</span>
+                  <span>Testing</span>
+                  <span>Growth</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Recent work</span>
+            <h2>Selected project snapshots.</h2>
+          </div>
+          <div class="row g-4" id="home-portfolio-grid">
+            <div class="col-md-6 col-xl-4">
+              <article class="project-card">
+                <div class="project-image project-a"></div>
+                <div class="project-body">
+                  <span class="tag">SaaS</span>
+                  <h3>Northstar Ops</h3>
+                  <p>Revamped onboarding and pricing flow for a B2B operations platform.</p>
+                  <a href="pages/project-details.html">View case study <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </article>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <article class="project-card">
+                <div class="project-image project-b"></div>
+                <div class="project-body">
+                  <span class="tag">Finance</span>
+                  <h3>Ledgerly</h3>
+                  <p>Built a modern operations dashboard and investor reporting system.</p>
+                  <a href="pages/project-details.html">View case study <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </article>
+            </div>
+            <div class="col-md-6 col-xl-4">
+              <article class="project-card">
+                <div class="project-image project-c"></div>
+                <div class="project-body">
+                  <span class="tag">Marketplace</span>
+                  <h3>Velora</h3>
+                  <p>Redesigned product discovery and conversion loops for a digital marketplace.</p>
+                  <a href="pages/project-details.html">View case study <i class="bi bi-arrow-right"></i></a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section muted-section">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Simple pricing</span>
+            <h2>Choose a plan that matches your momentum.</h2>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="pricing-card">
+                <span class="pricing-tier">Starter</span>
+                <h3>$990<span>/mo</span></h3>
+                <ul>
+                  <li>Brand refresh</li>
+                  <li>Landing page systems</li>
+                  <li>Monthly support</li>
+                </ul>
+                <a href="pages/pricing.html" class="btn btn-outline-light w-100">Learn more</a>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="pricing-card featured">
+                <span class="pricing-tier">Growth</span>
+                <h3>$2,400<span>/mo</span></h3>
+                <ul>
+                  <li>Product + marketing stack</li>
+                  <li>Quarterly roadmap</li>
+                  <li>Priority support</li>
+                </ul>
+                <a href="pages/membership.html" class="btn btn-primary w-100">Start growth plan</a>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="pricing-card">
+                <span class="pricing-tier">Scale</span>
+                <h3>Custom</h3>
+                <ul>
+                  <li>Dedicated pod</li>
+                  <li>Multi-team execution</li>
+                  <li>Advanced integrations</li>
+                </ul>
+                <a href="pages/start-project.html" class="btn btn-outline-light w-100">Book discovery</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="faq-wrap">
+            <div class="section-heading left-align">
+              <span class="eyebrow">Frequently asked</span>
+              <h2>Questions clients ask before we start.</h2>
+            </div>
+            <div class="accordion" id="faqAccordion">
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                    What kind of engagements do you take on?
+                  </button>
+                </h3>
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">We work on product design, landing pages, SaaS experiences, conversion systems, and marketing infrastructure for growing teams.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                    Can you work with an in-house team?
+                  </button>
+                </h3>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Yes. We often plug into internal teams to handle design, front-end implementation, QA, and product-level strategy.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                    Do you support ongoing retainers?
+                  </button>
+                </h3>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">Absolutely. We offer monthly retainers for both design systems and ongoing product marketing support.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-banner section">
+        <div class="container text-center">
+          <span class="eyebrow">Ready to ship</span>
+          <h2>Let’s build the next chapter of your growth.</h2>
+          <a href="pages/start-project.html" class="btn btn-primary btn-lg">Start a project</a>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/footer.js"></script>
+  </body>
+</html>

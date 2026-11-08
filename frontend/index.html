@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pravyuk | Professional Website Design &amp; Development Agency</title>
+    <meta name="description" content="Pravyuk helps businesses, startups, and creators build professional websites, e-commerce stores, landing pages, and custom web applications. Your Vision. Our Build." />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href="https://pravyuk.com/" />
+
+    <!-- Favicon & Brand Icons -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    <!-- Open Graph Metadata -->
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Pravyuk | Professional Website Design &amp; Development Agency" />
+    <meta property="og:description" content="Pravyuk helps businesses, startups, and creators build professional websites, e-commerce stores, landing pages, and custom web applications. Your Vision. Our Build." />
+    <meta property="og:url" content="https://pravyuk.com/" />
+    <meta property="og:site_name" content="Pravyuk" />
+    <meta property="og:image" content="https://pravyuk.com/assets/images/pravyuk-og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pravyuk — Your Vision. Our Build." />
+
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pravyuk | Professional Website Design &amp; Development Agency" />
+    <meta name="twitter:description" content="Pravyuk helps businesses, startups, and creators build professional websites, e-commerce stores, landing pages, and custom web applications. Your Vision. Our Build." />
+    <meta name="twitter:image" content="https://pravyuk.com/assets/images/pravyuk-og.jpg" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://pravyuk.com/#organization",
+          "name": "Pravyuk",
+          "url": "https://pravyuk.com/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://pravyuk.com/assets/images/pravyuk-logo.png"
+          },
+          "description": "Pravyuk is a modern website development agency that transforms ideas into professional digital experiences. Your Vision. Our Build.",
+          "email": "hello@pravyuk.com",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Bengaluru",
+            "addressRegion": "Karnataka",
+            "addressCountry": "IN"
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "email": "hello@pravyuk.com",
+            "availableLanguage": ["English", "Hindi"]
+          },
+          "sameAs": [
+            "https://twitter.com/pravyuk",
+            "https://github.com/pravyuk",
+            "https://linkedin.com/company/pravyuk"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://pravyuk.com/#website",
+          "url": "https://pravyuk.com/",
+          "name": "Pravyuk",
+          "publisher": {
+            "@id": "https://pravyuk.com/#organization"
+          },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://pravyuk.com/pages/services.html?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "Service",
+          "@id": "https://pravyuk.com/#service-website-development",
+          "serviceType": "Website Design and Development",
+          "provider": {
+            "@id": "https://pravyuk.com/#organization"
+          },
+          "areaServed": "Worldwide",
+          "description": "Bespoke website design, full-stack web applications, landing pages, e-commerce platforms, and UI/UX design with milestone-based payment."
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://pravyuk.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How does the Pravyuk project quotation process work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You submit your project requirements using our Start Your Project form. Our engineering leads review your required pages, features, and timeline, then issue an itemized proposal with a transparent milestone schedule directly to your client dashboard within 24 hours."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "When do I pay for my project?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You never pay before reviewing and accepting our proposal. Once you approve the quote, you pay an advance deposit via secure Razorpay checkout to initiate design and coding. Remaining milestone payments are completed only after you review verified deliverables on private staging."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do I own 100% of the website source code?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, completely. Upon final milestone completion, we hand over full ownership of the clean source code, design assets, and deployment credentials with zero vendor lock-in."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What payment methods are supported?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We support UPI (Google Pay, PhonePe, Paytm), Credit and Debit Cards, Netbanking from 50+ banks, and Corporate Wallets via our integrated Razorpay gateway."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <!-- Typography & Stylesheets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/cards.css" />
+  </head>
+  <body>
+    <div id="site-navbar"></div>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="container">
+          <div class="row align-items-center gx-5">
+            <div class="col-lg-7">
+              <div class="eyebrow"><i class="bi bi-flower1 me-1"></i> Modern Website Development Agency</div>
+              <h1 class="display-3 fw-bold mb-3">Your Vision. Our Build.</h1>
+              <p class="lead mb-4">
+                We design and develop professional websites that help businesses, startups, and creators establish a powerful digital presence. From high-converting landing pages to bespoke full-stack web applications, we transform ideas into refined digital experiences.
+              </p>
+              <div class="d-flex flex-wrap gap-3 mt-4">
+                <a href="pages/start-project.html" class="btn btn-primary btn-lg">
+                  <i class="bi bi-arrow-right-circle me-1"></i> Start Your Project
+                </a>
+                <a href="pages/projects.html" class="btn btn-outline-dark btn-lg">
+                  Explore Our Work
+                </a>
+                <a href="pages/how-it-works.html" class="btn btn-outline-secondary btn-lg">
+                  How It Works
+                </a>
+              </div>
+              <div class="hero-stats row mt-5 pt-3 border-top">
+                <div class="col-4">
+                  <strong>100%</strong>
+                  <span>Client Code Ownership</span>
+                </div>
+                <div class="col-4">
+                  <strong>Milestone</strong>
+                  <span>Secure Razorpay Flow</span>
+                </div>
+                <div class="col-4">
+                  <strong>3-7 Days</strong>
+                  <span>Fast Launch Timelines</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5 mt-5 mt-lg-0">
+              <div class="hero-card position-relative text-center">
+                <!-- Botanical Emblem Header -->
+                <div class="mb-3">
+                  <img src="assets/images/pravyuk-logo.svg" alt="Pravyuk Emblem" style="max-width: 170px; height: auto;" onerror="this.onerror=null; this.src='assets/images/pravyuk-logo.png';" />
+                </div>
+                <div class="mini-panel text-start">
+                  <span class="label">Sprint Availability</span>
+                  <strong style="color: var(--muted-green);"><i class="bi bi-circle-fill me-1" style="font-size: 0.65rem;"></i> Open for New Projects</strong>
+                </div>
+                <div class="dashboard-preview p-3 text-start">
+                  <div class="d-flex align-items-center gap-3 mb-2 p-2 bg-light rounded border">
+                    <div class="badge bg-dark p-2"><i class="bi bi-1-circle"></i></div>
+                    <div>
+                      <h6 class="mb-0 fw-bold">1. Submit Brief</h6>
+                      <small class="text-muted">Tell us your goals &amp; required features</small>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3 mb-2 p-2 bg-light rounded border">
+                    <div class="badge bg-dark p-2"><i class="bi bi-2-circle"></i></div>
+                    <div>
+                      <h6 class="mb-0 fw-bold">2. Itemized Proposal</h6>
+                      <small class="text-muted">Transparent quote &amp; milestone schedule</small>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3 mb-2 p-2 bg-light rounded border">
+                    <div class="badge bg-dark p-2"><i class="bi bi-3-circle"></i></div>
+                    <div>
+                      <h6 class="mb-0 fw-bold">3. Sprint &amp; Milestones</h6>
+                      <small class="text-muted">Direct collaboration &amp; staging preview</small>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3 p-2 rounded border" style="background: var(--muted-green-light); border-color: rgba(82,107,86,0.3) !important;">
+                    <div class="badge p-2" style="background: var(--muted-green);"><i class="bi bi-check-circle-fill"></i></div>
+                    <div>
+                      <h6 class="mb-0 fw-bold" style="color: var(--muted-green);">4. Review &amp; Launch</h6>
+                      <small class="text-muted">Clean handover to your custom domain</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why Choose Pravyuk (Brand Personality & Positioning) -->
+      <section class="section muted-section">
+        <div class="container">
+          <div class="section-heading text-center mb-5">
+            <span class="eyebrow eyebrow-green">Why Choose Pravyuk</span>
+            <h2>Crafted with Precision. Delivered with Integrity.</h2>
+            <p class="text-muted mx-auto" style="max-width: 650px;">
+              Pravyuk combines elegant design sensibilities with modern engineering standards to deliver bespoke digital experiences without unnecessary complexity.
+            </p>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+              <div class="info-card">
+                <div class="icon-wrap green"><i class="bi bi-gem"></i></div>
+                <h4>Elegant Craftsmanship</h4>
+                <p class="text-muted small">We avoid cookie-cutter builders. Every interface is tailored to your brand personality with clean typography and balanced whitespace.</p>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="info-card">
+                <div class="icon-wrap"><i class="bi bi-shield-check"></i></div>
+                <h4>Milestone Security</h4>
+                <p class="text-muted small">Pay in transparent stages via official Razorpay integration. You verify working deliverables before releasing subsequent milestone funds.</p>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="info-card">
+                <div class="icon-wrap green"><i class="bi bi-key"></i></div>
+                <h4>Full Code Ownership</h4>
+                <p class="text-muted small">100% ownership of your source code, design assets, and hosting credentials. Zero proprietary lock-in, forever.</p>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="info-card">
+                <div class="icon-wrap"><i class="bi bi-lightning-charge"></i></div>
+                <h4>Performance First</h4>
+                <p class="text-muted small">Built for lightning-fast Core Web Vitals, seamless mobile responsiveness, clean SEO architecture, and accessibility compliance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services Overview Section -->
+      <section class="section">
+        <div class="container">
+          <div class="section-heading text-center mb-5">
+            <span class="eyebrow">Professional Services</span>
+            <h2>What We Build For You</h2>
+            <p class="text-muted mx-auto" style="max-width: 650px;">
+              End-to-end web engineering tailored for entrepreneurs, startups, small and medium businesses, and established enterprises.
+            </p>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+              <div class="info-card">
+                <div class="icon-wrap"><i class="bi bi-window-fullscreen"></i></div>
+                <h4>Landing Pages</h4>
+                <p class="text-muted small">High-converting single-page digital experiences engineered for software launches, startup MVPs, and marketing campaigns.</p>
+                <a href="pages/landing-page-development.html" class="fw-semibold small mt-auto text-dark text-decoration-none">Explore Service <i class="bi bi-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="info-card">
+                <div class="icon-wrap"><i class="bi bi-buildings"></i></div>
+                <h4>Business Websites</h4>
+                <p class="text-muted small">Corporate web presences showcasing your capabilities, team profiles, service catalogs, and lead generation funnels.</p>
+                <a href="pages/business-website-development.html" class="fw-semibold small mt-auto text-dark text-decoration-none">Explore Service <i class="bi bi-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="info-card">
+                <div class="icon-wrap"><i class="bi bi-bag-check"></i></div>
+                <h4>E-Commerce Websites</h4>
+                <p class="text-muted small">Fast storefronts with modern product catalogs, cart drawers, checkout security, and integrated Razorpay payments.</p>
+                <a href="pages/ecommerce-development.html" class="fw-semibold small mt-auto text-dark text-decoration-none">Explore Service <i class="bi bi-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="info-card">
+                <div class="icon-wrap"><i class="bi bi-cpu"></i></div>
+                <h4>Custom Web Applications</h4>
+                <p class="text-muted small">Bespoke web applications, client portals, and administrative management tools engineered with modern full-stack architectures.</p>
+                <a href="pages/custom-web-applications.html" class="fw-semibold small mt-auto text-dark text-decoration-none">Explore Service <i class="bi bi-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="info-card">
+                <div class="icon-wrap"><i class="bi bi-arrow-repeat"></i></div>
+                <h4>Website Redesign</h4>
+                <p class="text-muted small">Revitalize dated or sluggish platforms with elevated aesthetics, faster load speeds, and improved conversion pathways.</p>
+                <a href="pages/website-redesign.html" class="fw-semibold small mt-auto text-dark text-decoration-none">Explore Service <i class="bi bi-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="info-card">
+                <div class="icon-wrap"><i class="bi bi-palette"></i></div>
+                <h4>UI/UX Design</h4>
+                <p class="text-muted small">Wireframing, user journeys, interactive prototypes, and developer-ready design systems designed in Figma.</p>
+                <a href="pages/ui-ux-design.html" class="fw-semibold small mt-auto text-dark text-decoration-none">Explore Service <i class="bi bi-arrow-right ms-1"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-5">
+            <a href="pages/services.html" class="btn btn-outline-dark">View All 12 Capabilities <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4-Step Development Process Section -->
+      <section class="section muted-section">
+        <div class="container">
+          <div class="section-heading text-center mb-5">
+            <span class="eyebrow">How Our Process Works</span>
+            <h2>From Project Brief to Live Deployment</h2>
+            <p class="text-muted mx-auto" style="max-width: 620px;">
+              Our structured 4-step workflow gives you complete clarity at every stage with zero surprises.
+            </p>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+              <div class="info-card">
+                <div class="eyebrow mb-2">Step 01</div>
+                <h4>Submit Your Brief</h4>
+                <p class="text-muted small">Detail your project goals, required pages, design inspirations, and target timeline using our brief builder.</p>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="info-card">
+                <div class="eyebrow mb-2">Step 02</div>
+                <h4>Itemized Quotation</h4>
+                <p class="text-muted small">Our technical leads review your requirements and provide a fixed quotation with milestone breakdown within 24 hours.</p>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="info-card">
+                <div class="eyebrow mb-2">Step 03</div>
+                <h4>Sprint &amp; Milestone Pay</h4>
+                <p class="text-muted small">Approve the proposal and pay the advance via Razorpay. We design and code, sharing regular staging updates for feedback.</p>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="info-card">
+                <div class="eyebrow eyebrow-green mb-2">Step 04</div>
+                <h4>Final Delivery &amp; Launch</h4>
+                <p class="text-muted small">Following milestone approval and final payment, we deploy to your production domain and provide 100% source handover.</p>
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-4 pt-2">
+            <a href="pages/how-it-works.html" class="btn btn-outline-secondary">Learn More About the Workflow <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Selected Portfolio Projects -->
+      <section class="section">
+        <div class="container">
+          <div class="section-heading d-flex flex-wrap justify-content-between align-items-end mb-4">
+            <div>
+              <span class="eyebrow">Selected Work</span>
+              <h2>Recent Web Projects</h2>
+              <p class="text-muted mb-0">Production websites and web applications built to our rigorous quality benchmarks.</p>
+            </div>
+            <a href="pages/projects.html" class="btn btn-outline-dark mt-3 mt-md-0">Explore All Work <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+          <div class="row g-4" id="home-portfolio-container">
+            <div class="col-md-6 col-lg-4">
+              <div class="project-card">
+                <div class="project-image project-a"></div>
+                <div class="project-body">
+                  <span class="tag">Full-Stack Platform</span>
+                  <h4>FintechFlow</h4>
+                  <p class="text-muted small">Automated reconciliation and real-time transaction reporting platform with customer analytics.</p>
+                  <a href="pages/project-details.html?slug=fintech-flow" class="mt-auto">View Case Details <i class="bi bi-arrow-right ms-1"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="project-card">
+                <div class="project-image project-b"></div>
+                <div class="project-body">
+                  <span class="tag">E-Commerce Development</span>
+                  <h4>Nexus Store</h4>
+                  <p class="text-muted small">Modern digital storefront with sub-second page transitions, dynamic cart, and Razorpay checkout.</p>
+                  <a href="pages/project-details.html?slug=nexus-commerce" class="mt-auto">View Case Details <i class="bi bi-arrow-right ms-1"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="project-card">
+                <div class="project-image project-c"></div>
+                <div class="project-body">
+                  <span class="tag">AI Integration</span>
+                  <h4>MedConnect</h4>
+                  <p class="text-muted small">Intelligent clinical protocol search assistant helping research teams rapidly index and query medical data.</p>
+                  <a href="pages/project-details.html?slug=medconnect-ai" class="mt-auto">View Case Details <i class="bi bi-arrow-right ms-1"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Transparent Quotations & Starting Benchmarks -->
+      <section class="section muted-section">
+        <div class="container">
+          <div class="section-heading text-center mb-5">
+            <span class="eyebrow">Pricing &amp; Estimates</span>
+            <h2>Transparent Starting Benchmarks</h2>
+            <p class="text-muted mx-auto" style="max-width: 650px;">
+              Every business has unique requirements. We provide itemized proposals tailored to your specific scope, pages, and integrations.
+            </p>
+          </div>
+          <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+              <div class="pricing-card">
+                <span class="pricing-tier">Landing Page</span>
+                <h3>₹4,999 <span>starting</span></h3>
+                <p class="text-muted small">Focused single-page site engineered for high conversion rates.</p>
+                <ul>
+                  <li>Up to 5 custom sections</li>
+                  <li>Lead capture form integration</li>
+                  <li>Responsive on all devices</li>
+                  <li>Turnaround: 3-5 days</li>
+                </ul>
+                <a href="pages/start-project.html?service=landing-page" class="btn btn-outline-dark mt-auto">Start Project</a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="pricing-card featured">
+                <span class="pricing-badge-popular">Popular</span>
+                <span class="pricing-tier">Business Website</span>
+                <h3>₹12,999 <span>starting</span></h3>
+                <p class="text-muted small">Multi-page corporate website commanding authority in your industry.</p>
+                <ul>
+                  <li>5-8 custom structured pages</li>
+                  <li>On-page SEO setup &amp; sitemap</li>
+                  <li>Interactive contact &amp; inquiry forms</li>
+                  <li>Turnaround: 1-2 weeks</li>
+                </ul>
+                <a href="pages/start-project.html?service=business-website" class="btn btn-primary mt-auto">Start Project</a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="pricing-card">
+                <span class="pricing-tier">E-Commerce Store</span>
+                <h3>₹24,999 <span>starting</span></h3>
+                <p class="text-muted small">Complete storefront with product catalog and secure payment gateway.</p>
+                <ul>
+                  <li>Product catalog &amp; cart drawer</li>
+                  <li>Razorpay checkout (UPI, cards, netbanking)</li>
+                  <li>Order tracking &amp; receipts</li>
+                  <li>Turnaround: 2-3 weeks</li>
+                </ul>
+                <a href="pages/start-project.html?service=e-commerce-website" class="btn btn-outline-dark mt-auto">Start Project</a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="pricing-card">
+                <span class="pricing-tier">Custom Web App</span>
+                <h3>Custom <span>Quote</span></h3>
+                <p class="text-muted small">Tailored client portals, dashboards, SaaS platforms, and internal tools.</p>
+                <ul>
+                  <li>Custom full-stack architecture</li>
+                  <li>Role-based access &amp; auth</li>
+                  <li>Milestone-based stage payments</li>
+                  <li>Turnaround: 3-6 weeks</li>
+                </ul>
+                <a href="pages/start-project.html?service=custom-web-apps" class="btn btn-outline-dark mt-auto">Request Quote</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="section">
+        <div class="container">
+          <div class="section-heading text-center mb-5">
+            <span class="eyebrow">Frequently Asked Questions</span>
+            <h2>Common Inquiries About Pravyuk</h2>
+            <p class="text-muted mx-auto" style="max-width: 600px;">
+              Everything you need to know about our collaboration, payments, and delivery.
+            </p>
+          </div>
+          <div class="faq-wrap">
+            <div class="accordion" id="pravyukFaq">
+              <div class="accordion-item mb-3">
+                <h2 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                    How does the Pravyuk quotation process work?
+                  </button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#pravyukFaq">
+                  <div class="accordion-body">
+                    Submit your project brief through our <strong>Start Your Project</strong> form. Our engineering team reviews your required pages, design complexity, integrations, and timeline, then issues a detailed proposal with fixed pricing and milestone dates directly to your dashboard within 24 hours.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item mb-3">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                    When do I make payments?
+                  </button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#pravyukFaq">
+                  <div class="accordion-body">
+                    You never pay upfront before reviewing and accepting our proposal. Once you approve the quote, you pay an advance deposit via Razorpay to initiate development. Subsequent payments occur only as agreed milestones are delivered and verified on private staging.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item mb-3">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                    Do I own the complete source code?
+                  </button>
+                </h2>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#pravyukFaq">
+                  <div class="accordion-body">
+                    Yes, 100%. Upon final project milestone completion, you receive full intellectual property ownership, clean source repositories, design files, and production hosting credentials with zero vendor lock-in.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item mb-3">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                    What payment methods do you accept?
+                  </button>
+                </h2>
+                <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#pravyukFaq">
+                  <div class="accordion-body">
+                    We accept UPI (Google Pay, PhonePe, Paytm, BHIM), all major Credit and Debit Cards (Visa, Mastercard, RuPay), Netbanking across 50+ banks, and Wallets via our secure Razorpay integration with automated receipts.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Client Inquiry CTA Section -->
+      <section class="cta-banner text-center">
+        <div class="container py-2">
+          <div class="mb-3">
+            <img src="assets/images/pravyuk-logo-white.svg" alt="Pravyuk" style="max-width: 140px; height: auto;" onerror="this.onerror=null; this.src='assets/images/pravyuk-logo-white.png';" />
+          </div>
+          <span class="eyebrow" style="color: var(--accent);">Your Vision. Our Build.</span>
+          <h2 class="display-6 fw-bold mb-3">Ready to bring your digital vision to life?</h2>
+          <p class="mx-auto mb-4" style="max-width: 600px;">
+            Tell us about your project requirements. Receive a transparent, itemized proposal and milestone schedule within 24 hours.
+          </p>
+          <div class="d-flex justify-content-center gap-3">
+            <a href="pages/start-project.html" class="btn btn-accent btn-lg">
+              <i class="bi bi-arrow-right-circle me-1"></i> Start Your Project
+            </a>
+            <a href="pages/contact.html" class="btn btn-outline-light btn-lg">
+              Contact Us
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/footer.js"></script>
+  </body>
+</html>

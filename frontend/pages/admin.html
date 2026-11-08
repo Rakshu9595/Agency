@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agency Admin Portal | Pravyuk Internal Management</title>
+  <meta name="description" content="Internal agency operations dashboard for project inquiries, quote generation, sprint stages, milestones, and payments." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/cards.css" />
+  <!-- Favicon & Brand Icons -->
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+</head>
+<body class="bg-black text-white">
+  <div id="site-navbar"></div>
+
+  <main class="main-page py-4">
+    <div class="container">
+      <!-- Admin Header -->
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 p-4 rounded-4 bg-dark border border-secondary border-opacity-25">
+        <div>
+          <span class="badge bg-danger mb-2"><i class="bi bi-shield-lock-fill me-1"></i> Authorized Staff Area</span>
+          <h2 class="text-white fw-bold mb-1">Agency Management Portal</h2>
+          <p class="text-muted small mb-0">Manage incoming briefs, issue itemized quotes, advance sprint stages, and verify milestone revenue.</p>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-light btn-sm" onclick="loadAdminData()"><i class="bi bi-arrow-clockwise me-1"></i> Refresh</button>
+          <a href="dashboard.html" class="btn btn-outline-primary btn-sm">Client Portal View</a>
+        </div>
+      </div>
+
+      <!-- Unauthorized Alert Box (Hidden unless role check fails) -->
+      <div id="admin-forbidden-view" class="d-none text-center py-5">
+        <div class="display-1 text-danger mb-3"><i class="bi bi-shield-x"></i></div>
+        <h3>Access Denied (403 Forbidden)</h3>
+        <p class="text-muted mx-auto" style="max-width: 500px;">
+          This internal administration portal is restricted to authorized agency engineers and staff. Your account does not possess administrative privileges.
+        </p>
+        <a href="dashboard.html" class="btn btn-primary">Go to Customer Dashboard</a>
+      </div>
+
+      <!-- Main Admin Content -->
+      <div id="admin-main-view">
+        <!-- KPI Metrics Grid -->
+        <div class="row g-3 mb-4">
+          <div class="col-sm-6 col-lg-3">
+            <div class="card p-3 border-0 bg-dark rounded-3 border border-secondary border-opacity-25">
+              <span class="text-muted small">Verified Revenue</span>
+              <div id="admin-metric-revenue" class="fs-4 fw-bold text-success mt-1">₹0</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="card p-3 border-0 bg-dark rounded-3 border border-secondary border-opacity-25">
+              <span class="text-muted small">New Inquiries</span>
+              <div id="admin-metric-inquiries" class="fs-4 fw-bold text-primary mt-1">0</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="card p-3 border-0 bg-dark rounded-3 border border-secondary border-opacity-25">
+              <span class="text-muted small">Active Sprints</span>
+              <div id="admin-metric-projects" class="fs-4 fw-bold text-warning mt-1">0</div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="card p-3 border-0 bg-dark rounded-3 border border-secondary border-opacity-25">
+              <span class="text-muted small">Pending Quotes</span>
+              <div id="admin-metric-quotes" class="fs-4 fw-bold text-info mt-1">0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-pills mb-4 border-bottom border-secondary border-opacity-25 pb-3 gap-2" id="adminTabs" role="tablist">
+          <li class="nav-item">
+            <button class="nav-link active btn-sm" id="tab-inquiries" data-bs-toggle="pill" data-bs-target="#content-inquiries" type="button">
+              <i class="bi bi-inbox me-1"></i> Inquiries Inbox
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link btn-sm" id="tab-projects" data-bs-toggle="pill" data-bs-target="#content-projects" type="button">
+              <i class="bi bi-kanban me-1"></i> Agency Projects & Stages
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link btn-sm" id="tab-payments" data-bs-toggle="pill" data-bs-target="#content-payments" type="button">
+              <i class="bi bi-credit-card me-1"></i> Transactions & Refunds
+            </button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="adminTabContent">
+          <!-- Tab 1: Inquiries Inbox -->
+          <div class="tab-pane fade show active" id="content-inquiries">
+            <div class="card p-4 border-0 bg-dark rounded-4 border border-secondary border-opacity-25">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-white fw-bold mb-0">Incoming Client Briefs</h4>
+                <div class="d-flex gap-2">
+                  <select id="inquiry-filter-status" class="form-select form-select-sm bg-black text-white border-secondary" style="width: 160px;" onchange="loadAdminInquiries()">
+                    <option value="">All Statuses</option>
+                    <option value="submitted">Submitted</option>
+                    <option value="under_review">Under Review</option>
+                    <option value="quoted">Quoted</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-dark table-hover align-middle mb-0" style="background: transparent;">
+                  <thead>
+                    <tr class="text-muted small border-bottom border-secondary border-opacity-25">
+                      <th>Ref ID</th>
+                      <th>Client Name</th>
+                      <th>Email / Phone</th>
+                      <th>Website Type</th>
+                      <th>Budget</th>
+                      <th>Status</th>
+                      <th class="text-end">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-inquiries-tbody">
+                    <tr><td colspan="7" class="text-center py-4 text-muted">Loading inquiries...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Projects & Stage Management -->
+          <div class="tab-pane fade" id="content-projects">
+            <div class="card p-4 border-0 bg-dark rounded-4 border border-secondary border-opacity-25">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-white fw-bold mb-0">Client Development Sprints</h4>
+                <small class="text-muted">Advance stages, post timeline updates, and configure milestones</small>
+              </div>
+              <div id="admin-projects-list">
+                <div class="text-center py-4 text-muted">Loading projects...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: Transactions & Refunds -->
+          <div class="tab-pane fade" id="content-payments">
+            <div class="card p-4 border-0 bg-dark rounded-4 border border-secondary border-opacity-25 mb-4">
+              <h4 class="text-white fw-bold mb-3">Verified Payments & Razorpay Orders</h4>
+              <div class="table-responsive">
+                <table class="table table-dark table-hover align-middle mb-0" style="background: transparent;">
+                  <thead>
+                    <tr class="text-muted small border-bottom border-secondary border-opacity-25">
+                      <th>Date</th>
+                      <th>Order Ref</th>
+                      <th>Client</th>
+                      <th>Title</th>
+                      <th>Amount</th>
+                      <th>Razorpay ID</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-payments-tbody">
+                    <tr><td colspan="7" class="text-center py-4 text-muted">Loading payments...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Refund Requests Ledger -->
+            <div class="card p-4 border-0 bg-dark rounded-4 border border-secondary border-opacity-25">
+              <h4 class="text-white fw-bold mb-3">Client Refund Requests</h4>
+              <div class="table-responsive">
+                <table class="table table-dark table-hover align-middle mb-0" style="background: transparent;">
+                  <thead>
+                    <tr class="text-muted small border-bottom border-secondary border-opacity-25">
+                      <th>Refund Ref</th>
+                      <th>Order Ref</th>
+                      <th>Reason</th>
+                      <th>Status</th>
+                      <th class="text-end">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="admin-refunds-tbody">
+                    <tr><td colspan="5" class="text-center py-4 text-muted">No refund requests pending.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Create Quote Modal -->
+  <div class="modal fade" id="createQuoteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-dark text-white border-secondary">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title fw-bold">Issue Formal Quotation Proposal</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="create-quote-form">
+            <input type="hidden" id="quote-inquiry-id" />
+            <input type="hidden" id="quote-customer-id" />
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label" for="quote-project-title">Project Title <span class="text-danger">*</span></label>
+                <input id="quote-project-title" class="form-control bg-black text-white border-secondary" type="text" required />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="quote-service">Service Category</label>
+                <input id="quote-service" class="form-control bg-black text-white border-secondary" type="text" value="custom-web-development" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="quote-total-amount">Total Agreed Price (INR) <span class="text-danger">*</span></label>
+                <input id="quote-total-amount" class="form-control bg-black text-white border-secondary" type="number" required min="1000" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="quote-advance-pct">Advance Deposit Percentage</label>
+                <select id="quote-advance-pct" class="form-select bg-black text-white border-secondary">
+                  <option value="50" selected>50% Advance (Standard)</option>
+                  <option value="30">30% Advance</option>
+                  <option value="40">40% Advance</option>
+                  <option value="100">100% Upfront</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="quote-scope">Scope of Work & Deliverables <span class="text-danger">*</span></label>
+                <textarea id="quote-scope" class="form-control bg-black text-white border-secondary" rows="3" required placeholder="Specify pages, features, integrations, and deployment scope."></textarea>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="quote-revisions">Included Revisions</label>
+                <input id="quote-revisions" class="form-control bg-black text-white border-secondary" type="text" value="2 rounds of structured reviews" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label" for="quote-warranty">Support & Warranty Period</label>
+                <input id="quote-warranty" class="form-control bg-black text-white border-secondary" type="text" value="30 days post-launch technical warranty" />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100"><i class="bi bi-send-check me-1"></i> Generate & Issue Proposal to Client</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Stage & Deliverables Modal -->
+  <div class="modal fade" id="updateStageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark text-white border-secondary">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title fw-bold">Update Sprint Stage & URLs</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="stage-project-ref" />
+          <div class="mb-3">
+            <label class="form-label">Sprint Stage</label>
+            <select id="stage-select" class="form-select bg-black text-white border-secondary">
+              <option value="inquiry">Inquiry</option>
+              <option value="review">Review</option>
+              <option value="quotation">Quotation</option>
+              <option value="awaiting_advance">Awaiting Advance</option>
+              <option value="design">Design</option>
+              <option value="development">Development</option>
+              <option value="testing">Testing</option>
+              <option value="awaiting_final_payment">Awaiting Final Payment</option>
+              <option value="delivered">Delivered (Completed)</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Staging Preview URL</label>
+            <input id="stage-staging-url" class="form-control bg-black text-white border-secondary" type="url" placeholder="https://staging.client.agency.dev" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Live Deployment URL (When Delivered)</label>
+            <input id="stage-live-url" class="form-control bg-black text-white border-secondary" type="url" placeholder="https://clientdomain.com" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Client Progress Note</label>
+            <textarea id="stage-note" class="form-control bg-black text-white border-secondary" rows="2" placeholder="e.g. Design review completed. Commencing frontend and Razorpay checkout build."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="submitProjectStageUpdate()">Save Updates</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/notifications.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/footer.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>
